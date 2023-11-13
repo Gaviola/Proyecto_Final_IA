@@ -17,10 +17,24 @@ Predecir correctamente en base a los datos de una partida cuál de los dos equip
 busca determinar que factores son los que mas afectan al resultado de una partida y cuanto podria llegar a durar la 
 partida dada una serie de factores iniciales.
 
+## Dataset
+Para la realizacion de este proyecto se utilizara un dataset que consiste en 100800 partidas de las categorias 
+challenger, grandmaster y master de la temporada 2020 de League of Legends en la region de Corea. Dentro de este dataset
+se pueden hacer uso de muchas variables, como por ejemplo:
+- gameDuration: Duracion de la partida
+- win: Si el equipo gano o perdio
+- firstBlood: Si el equipo obtuvo la primera sangre
+- firstTower: Si el equipo destruyo la primera torre
+- firstDragon: Si el equipo obtuvo el primer dragon
+
+Juntos con otros datos que pueden ser utilizados para la creacion de un modelo de machine learning.
+
+Link:
+https://www.kaggle.com/datasets/gyejr95/league-of-legendslol-ranked-games-2020-ver1/data?select=match_winner_data_version1.csv
+
 ## Alcance
 Lograr predecir el resultado de una partida mediante un modelo de machine learning adecuado. Para esto se implementará 
-un algoritmo de Random Forest o alguna implementacion de boosting. Se utilizará un dataset con datos de partidas 
-clasificatorias de la temporada 2020 de League of Legends en la region de Corea. 
+un algoritmo de Random Forest o alguna implementacion de boosting.
 
 ## Limitaciones
 - Falta de datos, ya que hay factores que influyen en el juego que no son planteados en los datos.
@@ -29,7 +43,11 @@ funcionando de manera correcta.
 
 ## Métricas
 Para la evaluacion del desempeño de los algoritmos se utilizaran las siguientes metricas:
-* Cantidad de partidas predichas correctamente / Cantidad total de partidas
+* Cantidad de partidas predichas correctamente / Cantidad total de partidas (F-score)
+
+Se evaluaran especificamente sensibilidad y especificidad, ya que se busca que el modelo pueda predecir correctamente ya
+que se consigue un mayor valor al lograr predecir si un equipo logra la victorio o es derrotado que si se predice
+incorrectamente. Tam
 
 ## Justificación
 La predicción del resultado de una partida implica considerar una amplia gama de factores y variables que resultan 
@@ -38,15 +56,17 @@ entre los datos presentes en una partida y su influencia en las predicciones se 
 en comparación con un programa tradicional.
 
 ## Listado de actividades a realizar
-1. Recopilación de datos
-2. Limpieza y puesta a punto del dataset
-3. Estudio de los atributos más descriptivos
-4. Investigación de modelos aplicables al problema
-5. Evaluación de distintos modelos de machine learning
-6. Comparar resultados de los distintos modelos frente a un algoritmo aleatorio
-7. Obtención de métricas para evaluar resultados
-8. Análisis de los resultados
-9. Optimización del código
+1. Recopilación de datos [1 dia]
+2. Limpieza y puesta a punto del dataset [3 dias]
+3. Estudio de los atributos más descriptivos [2 dias]
+4. Investigación de modelos aplicables al problema [7 dias]
+5. Evaluación de distintos modelos de machine learning [7 dias]
+6. Comparar resultados de los distintos modelos frente a un algoritmo aleatorio [2 dias]
+7. Obtención de métricas para evaluar resultados [1 dia]
+8. Análisis de los resultados [1 dia]
+9. Optimización del código [2 dias]
 
-## Dataset
-https://www.kaggle.com/datasets/gyejr95/league-of-legendslol-ranked-games-2020-ver1/data?select=match_winner_data_version1.csv
+## Papers o Referencias
+https://www.researchgate.net/publication/353766670_Using_Machine_Learning_to_Predict_Game_Outcomes_Based_on_Player-Champion_Experience_in_League_of_Legends
+https://www.researchgate.net/publication/358824595_Machine_Learning_Methods_for_Predicting_League_of_Legends_Game_Outcome
+https://link.springer.com/article/10.1007/s42979-022-01660-6
