@@ -4,6 +4,8 @@
 - Luciano Masuelli
 - Facundo Gaviola
 
+***Codigo del proyeto: LOL***
+
 ## Descripción
 League of Legends (LoL) es un popular videojuego de estrategia en tiempo real que ha alcanzado una inmensa popularidad 
 desde su lanzamiento en 2009. En este juego, dos equipos de cinco jugadores se enfrentan en un campo de batalla virtual, 
