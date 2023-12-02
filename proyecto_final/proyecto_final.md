@@ -124,6 +124,31 @@ Tambien se modifico la presentacion de los datos, ya que estos se encontraban al
 como listas o diccionarios, dificultando su uso. Para ello se crearon nuevas columnas en el dataset, donde se guardaran
 los datos de dichas estructruras.
 
+La principal metrica que se utilizara para la evaluacion del modelo sera la cantidad de partidas predichas correctamente
+sobre la cantidad total de partidas. sobre esta metrica se calculara la precision, sensibilidad, exactitud y F-score.
+
+* Random Forest
+
+Para la utilizacion de este modelo se utilizo la libreria de scikit-learn. Tambien se hizo uso de las librerias pandas,
+y numppy para la manipulacion de datos y matplotlib y seaborn para realizar ciertas graficas de los datos y resultados.
+
+Al utilizar el algoritmo Random Forest se encontro que los que la precision del modelo se encontraba entre un 80% y 85%
+dependiendo del valor de 'Random_state' utilizado. Se vio que, en general, al modificar los parametros de random forest
+tales como la cantidad de arboles, la cantidad de ejemplos minima para la creacion de una nueva rama, o los criterios de
+ramificacion, no se obtienen mejoras significaticas en las metricas del modelo.
+
+Al igual que la metrica de precision, tanto la sensibilidad, exactitud y F-score se encontraban entre un 80% y 85%
+
+![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\RF_matriz_de_confusion.png)
+
+![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\RF_metricas.png)
+
+Tambien se realizo un analisis de la importancia de las distintas variables predictoras a la hora de realizar el modelo
+de prediccion.
+
+![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\RF_importancia_columnas.png)
+
+
 ---
 
 ## Análisis y discusión de resultados
