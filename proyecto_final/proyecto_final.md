@@ -139,14 +139,17 @@ ramificacion, no se obtienen mejoras significaticas en las metricas del modelo.
 
 Al igual que la metrica de precision, tanto la sensibilidad, exactitud y F-score se encontraban entre un 80% y 85%
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\RF_matriz_de_confusion.png)
+![RF_matriz_de_confusion](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/06336948-0ecc-4afb-b3c9-5f4a0216660f)
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\RF_metricas.png)
+
+![RF_metricas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/98689913-c486-4c57-a7eb-775193a80106)
+
 
 Tambien se realizo un analisis de la importancia de las distintas variables predictoras a la hora de realizar el modelo
 de prediccion.
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\RF_importancia_columnas.png)
+![RF_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/669fbf43-eb60-4e04-8120-9fa1699fe942)
+
 
 
 ---
