@@ -2,7 +2,7 @@
 
 ---
 
-***Luciano Massuelli***
+***Luciano Masuelli***
 
 ***Facundo Gaviola***
 
@@ -12,27 +12,30 @@
 ---
 ## Introducción
 
-El objetivo de este proyecto es buscar predecir, mediante algoritmos de inteligencia artificial, el resultado de una
-partida de League of Legends.
 
-Para dar un poco de contexto para aquel que no conozca el juego, League of Legends (LoL) es un popular videojuego de 
+El propósito de este proyecto es anticipar el resultado de una partida en League of Legends, determinando si un equipo 
+en particular alcanzará la victoria. Para lograrlo, se emplearon algoritmos de Inteligencia Artificial, utilizando datos 
+relacionados con ambos equipos que participan en el enfrentamiento, así como características clave que definen el inicio 
+de la partida.
+
+Para dar un poco de contexto, League of Legends (LoL) es un popular videojuego de 
 estrategia en tiempo real que ha alcanzado una inmensa popularidad desde su lanzamiento en 2009. En este juego, dos 
 equipos de cinco jugadores se enfrentan en un campo de batalla virtual, cada uno controlando un campeón con habilidades 
-únicas. El juego a dejado una marca indeleble en el mundo de los esports, destacándose por su enorme base de jugadores,
+únicas. El juego ha dejado una marca indeleble en el mundo de los esports, destacándose por su enorme base de jugadores,
 la celebración del Campeonato Mundial anual con premios millonarios, y el establecimiento de ligas profesionales en
 diversas regiones.
 
 Por todo lo mencionado anteriormente, se puede considerar de una gran importancia el poder predecir el resultado de una
 partida de LoL, ya que esto puede ser utilizado, ya sea para apuestas deportivas, mejorar el rendimiento de un equipo o
-simplemente comprender las distintas variables que se relacionan entre si durante una partida a la hora de conseguir la
+simplemente comprender las distintas variables que se relacionan entre sí durante una partida a la hora de conseguir la
 victoria.
 
-Para esto se implementaran modelos de inteligencia artificial, tales como Random Forest o alguna implementacion de
-boosting, para poder predecir el resultado de una partida. La aplicacion de estas tecnicas de inteligencia artificial
-son la mejor opcion para este problema, debido a una serie de factores:
-* Complejidad del juego: El juego posee muchas variables que pueden influir de gran manera al desarrollo y resultado de
-una partida.
-* Gran cantidad de datos: Debido a la popularidad de LoL, es una tarea facil la recopilacion de una gran cantidad de 
+Se implementaron modelos de inteligencia artificial, como Random Forest o alguna variante de boosting, con el objetivo 
+de prever los resultados de las partidas en League of Legends.   
+La elección de estas técnicas de inteligencia artificial se sustenta en varios factores cruciales:
+* Complejidad del juego: League of Legends presenta una complejidad considerable, con numerosas variables que pueden 
+ejercer una influencia significativa en el desarrollo y desenlace de cada partida.
+* Gran cantidad de datos: Debido a la popularidad de LoL, es una tarea facil la recopilación de una gran cantidad de 
 partidas para poder entrenar los modelos.
 * Analisis de variables: Mediante la aplicacion de tecnicas de inteligencia artificial, se puede analizar cuales son las
 variables que mas influyen en el resultado de una partida, y cuales son las que menos influyen. Algortimos como Random
@@ -42,20 +45,20 @@ Para la realizacion del proyecto se utilizaran partidas de la region de Corea de
 partidas fueron obtenidas de la pagina web de Kaggle, y se pueden encontrar en el siguiente link:
 https://www.kaggle.com/datasets/gyejr95/league-of-legendslol-ranked-games-2020-ver1/data?select=match_winner_data_version1.csv
 
-Se intentaran utilizar como variables predictoras a aquellos datos que puedan ser obtenidos al comienzo de una partida 
-o en su defecto, en los primeros minutos de transcurrida la misma. Esto se debe a que se busca realizar una prediccion
-lo mas temprana posible en la partidad.
+Se intentarán utilizar como variables predictoras a aquellos datos que puedan ser obtenidos al comienzo de una partida 
+o en su defecto, en los primeros minutos de transcurrida la misma. Esto se debe a que se busca realizar una predicción
+lo más temprana posible en la partida.
 
 ---
 
 ## Marco teórico
 
-**Arboles de Decision**
+**Árboles de Decision**
 
-Los arboles de decision representan una funcion que toma como entrada un vector de atributos y valores y devuelve como 
+Los árboles de decision representan una función que toma como entrada un vector de atributos y valores y devuelve como 
 resultado una decision. Cada nodo interno del arbol representa una prueba sobre un atributo, cada rama representa el
-resultado de una prueba y cada nodo hoja representa una clase. El camino desde la raiz hasta una hoja representa una
-regla de clasificacion.
+resultado de una prueba y cada nodo hoja representa una clase. El camino desde la raíz hasta una hoja representa una
+regla de clasificación.
 
 El algoritmo en pseudocodigo utilizado para la creacion de un arbol de decision es el siguiente:
 * plurality-value devuelve el valor mas comun entre los ejemplos.
@@ -82,10 +85,10 @@ function decision-tree-learning(examples, attributes, parent_examples) returns a
 
 Random Forest es un algoritmo de aprendizaje basado en arboles de decision. El algoritmo crea una serie de arboles de
 decision, de la misma manera que lo hace un algoritmo de bagging, pero en este caso, en el momento de en que cada arbol
-del modelo va a crear nuevas ramas, se selecciona un subconjunto aleatorio de m variables predictoras del total de 
-variables predictoras p. En cada creacion de ramas se seleccionan m variables predictoras distintas. Esto se hace para
+del modelo va a crear nuevas ramas, se selecciona un subconjunto aleatorio de `m` variables predictoras del total de 
+variables predictoras `p`. En cada creacion de ramas se seleccionan `m` variables predictoras distintas. Esto se hace para
 evitar que los arboles esten altamente correlacionados entre si y asi tener un modelo mas confiable. Generalmente se
-utiliza m = sqrt(p) para la cantidad de variables seleccionadas.
+utiliza `m = sqrt(p)` para la cantidad de variables seleccionadas.
 
 **Boosting**
 
@@ -115,6 +118,7 @@ del algoritmo es el siguiente:
 
 ## Diseño Experimental
  
+### Limpieza de datos
 El primer paso para la realizacion del proyecto es la adecuacion del dataset para poder ser utilizado correctamente por
 los algoritmos de inteligencia artificial. Para esto se realizo una limpieza de los datos, eliminando aquellos que no 
 sean necesarios para las predicciones de los modelos, tales como, datos de temporada, creacion de partida, modo de juego
@@ -122,17 +126,17 @@ sean necesarios para las predicciones de los modelos, tales como, datos de tempo
 
 Tambien se modifico la presentacion de los datos, ya que estos se encontraban almacenados en estructuras de datos, tales
 como listas o diccionarios, dificultando su uso. Para ello se crearon nuevas columnas en el dataset, donde se guardaran
-los datos de dichas estructruras.
+los datos de dichas estructuras.
 
-La principal metrica que se utilizara para la evaluacion del modelo sera la cantidad de partidas predichas correctamente
-sobre la cantidad total de partidas. sobre esta metrica se calculara la precision, sensibilidad, exactitud y F-score.
+La principal metrica que se utilizará para la evaluación del modelo será la cantidad de partidas predichas correctamente
+sobre la cantidad total de partidas. sobre esta metrica se calculará la precision, sensibilidad, exactitud y F-score.
 
-* Random Forest
+### Random Forest
 
-Para la utilizacion de este modelo se utilizo la libreria de scikit-learn. Tambien se hizo uso de las librerias pandas,
-y numppy para la manipulacion de datos y matplotlib y seaborn para realizar ciertas graficas de los datos y resultados.
+Para la aplicación de este modelo se utilizó la libreria de `scikit-learn`. Tambien se hizo uso de las librerias `pandas`
+y `numpy` para la manipulacion de datos y `matplotlib` y `seaborn` para realizar ciertos graficos de los datos y resultados.
 
-Al utilizar el algoritmo Random Forest se encontro que los que la precision del modelo se encontraba entre un 80% y 85%
+Al utilizar el algoritmo Random Forest se notó que la precision del modelo se encontraba entre un 80% y 85%
 dependiendo del valor de 'Random_state' utilizado. Se vio que, en general, al modificar los parametros de random forest
 tales como la cantidad de arboles, la cantidad de ejemplos minima para la creacion de una nueva rama, o los criterios de
 ramificacion, no se obtienen mejoras significaticas en las metricas del modelo.
@@ -145,11 +149,19 @@ Al igual que la metrica de precision, tanto la sensibilidad, exactitud y F-score
 ![RF_metricas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/98689913-c486-4c57-a7eb-775193a80106)
 
 
-Tambien se realizo un analisis de la importancia de las distintas variables predictoras a la hora de realizar el modelo
+También se realizó un análisis de la importancia de las distintas variables predictoras a la hora de realizar el modelo
 de prediccion.
 
 ![RF_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/669fbf43-eb60-4e04-8120-9fa1699fe942)
 
+### Gradient Boosting
+
+Se aplicó también el algoritmo de Gradient Boosting para la realización del modelo de predicción. Este es una variante del 
+algoritmo de Boosting en el que se van creando secuencialmente distintos modelos simples de árboles de decision, donde 
+en cada iteración se intenta corregir los errores del modelo anterior. De esta forma, se va creando un modelo de 
+predicción más robusto y preciso.
+Para la creación del modelo se hizo uso de la libreria `xgboost`. Al igual que en el caso de Random Forest, 
+se utilizó la libreria `pandas` para la manipulación de datos.  
 
 
 ---
