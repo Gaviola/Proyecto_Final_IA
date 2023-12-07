@@ -146,7 +146,8 @@ habia una cantidad similar de partidas ganadas como de partidas perdidadas, por 
 tecnicas como oversampling, undersampling o SMOTE para balancear las clases. En la imagen se muestra como se distriyen
 las clases dentro del conjunto de entrenamiento y el conjunto de prueba.
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\random_forest\RF_balance_clases.png)
+![RF_balance_clases](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/10f5e3ff-a780-4ed0-aef8-3b7d332de9c3)
+
 
 Al utilizar el algoritmo Random Forest se notó que la precision del modelo se encontraba entre un 70% y 75%
 dependiendo del valor de 'Random_state' utilizado, tanto cuando se evaluaban utilizando el conjunto de prueba como el 
@@ -160,24 +161,24 @@ Las siguientes imagenes muestran las matrices de confusion y metricas del modelo
 
 **Conjunto de Prueba**
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\random_forest\RF_matriz_confusion_test.png)
+![RF_matriz_confusion_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/e1b4882f-3ad4-40ad-9460-c49f49a6b1dd)
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\random_forest\RF_metricas_test.png)
+![RF_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/832b1a53-784e-4077-ab37-a46d2b4a0273)
 
 **Conjunto de Entrenamiento**
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\random_forest\RF_matriz_confusion_train.png)
+![RF_matriz_confusion_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/4b2c1869-e361-46d8-aca5-a3bc49e3130b)
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\random_forest\RF_metricas_train.png)
+![RF_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/a7c4fc00-ae7b-40ea-9179-e839b9345eaf)
 
 
 También se realizó un análisis de la importancia de las distintas variables predictoras a la hora de realizar el modelo
 de prediccion con random forest. En las imagenes se puede observar que la variable mas influyentes es 'firstTower', 
 mientras que las variables 'ban1', 'ban2', 'champ1', 'champ2', etc no realizan un aporte significativo al modelo.
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\random_forest\RF_importancia_columnas.png)
+![RF_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/ab808f44-08e8-43a6-aa57-61afef6d75c4)
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\random_forest\RF_importancia_columnas_grafico.png)
+![RF_importancia_columnas_grafico](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/cfa057cf-fb63-4a1c-b661-4508a8d30f1e)
 
 ### Gradient Boosting
 
@@ -201,18 +202,17 @@ Las siguientes imagenes muestran las matrices de confusion y metricas del modelo
 
 **Conjunto de Prueba**
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\boosting\B_matriz_y_metricas_test.png)
+![B_matriz_y_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/deeb99c1-ce57-4f17-8aa1-1dc2def7e3ae)
 
 **Conjunto de Entrenamiento**
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\boosting\B_matriz_y_metricas_train.png)
+![B_matriz_y_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/e25de8a1-0492-45fb-aaa9-d6882e43624d)
 
 Al analizar las variables mas importantes con el modelo de boosting nos encontramos con un escenario similar al modelo
 de random forest en donde la variable mas importante es 'firstTower' y las variables 'ban' y 'champ' no realizan un 
 gran aporte.
 
-![](C:\Users\Facu\PycharmProjects\Proyecto_Final_IA\proyecto_final\images\boosting\B_importancia_columnas.png)
-
+![B_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/0eb113a6-b98d-48a3-9f87-cdf3a8c2be1c)
 
 
 
