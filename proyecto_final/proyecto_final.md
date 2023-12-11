@@ -128,40 +128,92 @@ Tambien se modifico la presentacion de los datos, ya que estos se encontraban al
 como listas o diccionarios, dificultando su uso. Para ello se crearon nuevas columnas en el dataset, donde se guardaran
 los datos de dichas estructuras.
 
+Finalmente se transformaron los datos categoricos en datos numericos, como por ejemplo, transformar los valores True y 
+False en 1 y 0 respectivamente, o transformar los nombres de los campeones en numeros enteros. Esto se realizo con el 
+fin de que los algoritmos puedan trabajar de forma correcta con los datos.
+
 La principal metrica que se utilizará para la evaluación del modelo será la cantidad de partidas predichas correctamente
 sobre la cantidad total de partidas. sobre esta metrica se calculará la precision, sensibilidad, exactitud y F-score.
 
 ### Random Forest
 
 Para la aplicación de este modelo se utilizó la libreria de `scikit-learn`. Tambien se hizo uso de las librerias `pandas`
-y `numpy` para la manipulacion de datos y `matplotlib` y `seaborn` para realizar ciertos graficos de los datos y resultados.
+y `numpy` para la manipulacion de datos y `matplotlib` y `seaborn` para realizar ciertos graficos de los datos y 
+resultados.
 
-Al utilizar el algoritmo Random Forest se notó que la precision del modelo se encontraba entre un 80% y 85%
-dependiendo del valor de 'Random_state' utilizado. Se vio que, en general, al modificar los parametros de random forest
-tales como la cantidad de arboles, la cantidad de ejemplos minima para la creacion de una nueva rama, o los criterios de
-ramificacion, no se obtienen mejoras significaticas en las metricas del modelo.
+Antes de realizar el modelo de prediccion, se analizo el balanceo de clases del dataset. Se observó que dentro del mismo
+habia una cantidad similar de partidas ganadas como de partidas perdidadas, por lo que no fue necesario el uso de 
+tecnicas como oversampling, undersampling o SMOTE para balancear las clases. En la imagen se muestra como se distriyen
+las clases dentro del conjunto de entrenamiento y el conjunto de prueba.
 
-Al igual que la metrica de precision, tanto la sensibilidad, exactitud y F-score se encontraban entre un 80% y 85%
-
-![RF_matriz_de_confusion](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/06336948-0ecc-4afb-b3c9-5f4a0216660f)
+![RF_balance_clases](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/10f5e3ff-a780-4ed0-aef8-3b7d332de9c3)
 
 
-![RF_metricas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/98689913-c486-4c57-a7eb-775193a80106)
+Al utilizar el algoritmo Random Forest se notó que la precision del modelo se encontraba entre un 70% y 75%
+dependiendo del valor de 'Random_state' utilizado, tanto cuando se evaluaban utilizando el conjunto de prueba como el 
+conjunto de entrenamiento. Se vio que, en general, al modificar los parametros de random forest tales como la cantidad 
+de arboles, la cantidad de ejemplos minima para la creacion de una nueva rama, o los criterios de ramificacion, no se 
+obtienen mejoras significativas en las metricas del modelo.
+
+Al igual que la metrica de precision, tanto la sensibilidad, exactitud y F-score se encontraban entre un 70% y 75%
+
+Las siguientes imagenes muestran las matrices de confusion y metricas del modelo con un random_state = 42.
+
+**Conjunto de Prueba**
+
+![RF_matriz_confusion_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/e1b4882f-3ad4-40ad-9460-c49f49a6b1dd)
+
+![RF_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/832b1a53-784e-4077-ab37-a46d2b4a0273)
+
+**Conjunto de Entrenamiento**
+
+![RF_matriz_confusion_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/4b2c1869-e361-46d8-aca5-a3bc49e3130b)
+
+![RF_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/a7c4fc00-ae7b-40ea-9179-e839b9345eaf)
 
 
 También se realizó un análisis de la importancia de las distintas variables predictoras a la hora de realizar el modelo
-de prediccion.
+de prediccion con random forest. En las imagenes se puede observar que la variable mas influyentes es 'firstTower', 
+mientras que las variables 'ban1', 'ban2', 'champ1', 'champ2', etc no realizan un aporte significativo al modelo.
 
-![RF_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/669fbf43-eb60-4e04-8120-9fa1699fe942)
+![RF_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/ab808f44-08e8-43a6-aa57-61afef6d75c4)
+
+![RF_importancia_columnas_grafico](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/cfa057cf-fb63-4a1c-b661-4508a8d30f1e)
 
 ### Gradient Boosting
 
-Se aplicó también el algoritmo de Gradient Boosting para la realización del modelo de predicción. Este es una variante del 
-algoritmo de Boosting en el que se van creando secuencialmente distintos modelos simples de árboles de decision, donde 
+Se aplicó también el algoritmo de Gradient Boosting para la realización del modelo de predicción. Este es una variante 
+del algoritmo de Boosting en el que se van creando secuencialmente distintos modelos simples de árboles de decision, donde 
 en cada iteración se intenta corregir los errores del modelo anterior. De esta forma, se va creando un modelo de 
-predicción más robusto y preciso.
-Para la creación del modelo se hizo uso de la libreria `xgboost`. Al igual que en el caso de Random Forest, 
-se utilizó la libreria `pandas` para la manipulación de datos.  
+predicción más robusto y preciso. Para la creación del modelo se hizo uso de la libreria `xgboost`. Al igual que en el 
+caso de Random Forest, se utilizó la libreria `pandas` para la manipulación de datos. 
+
+A la hora de realizar el modelo predictivo de clasificacion, se encontro con que el la precision del mismo se encontraba
+entre alrededor del 73% cuando se evaluaba sobre el conjunto de prueba y un 83% cuando se evaluaba sobre el conjunto de
+entrenamiento. A diferencia de random forest, no se observa una variacion dependiendo del valor de random_state. sin 
+embargo, al igual que en random forest, a la hora de modificar los parametros del modelo, no se observan mejoras en el 
+conjunto de prueba, pero si en el conjunto de entrenamiento en donde se llego a un 88%, lo que indica que lo unico que
+logramos modificando dichos parametros es un sobreajuste del modelo.
+
+Las metricas de sensibilidad, exactitud y F-score se encontraban entre un 73% en el conjunto de prueba y un 83% en el
+conjunto de entrenamiento.
+
+Las siguientes imagenes muestran las matrices de confusion y metricas del modelo
+
+**Conjunto de Prueba**
+
+![B_matriz_y_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/deeb99c1-ce57-4f17-8aa1-1dc2def7e3ae)
+
+**Conjunto de Entrenamiento**
+
+![B_matriz_y_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/e25de8a1-0492-45fb-aaa9-d6882e43624d)
+
+Al analizar las variables mas importantes con el modelo de boosting nos encontramos con un escenario similar al modelo
+de random forest en donde la variable mas importante es 'firstTower' y las variables 'ban' y 'champ' no realizan un 
+gran aporte.
+
+![B_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/0eb113a6-b98d-48a3-9f87-cdf3a8c2be1c)
+
 
 
 ---
