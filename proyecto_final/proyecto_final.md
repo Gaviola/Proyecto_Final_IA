@@ -118,22 +118,79 @@ del algoritmo es el siguiente:
 
 ## Diseño Experimental
  
-### Limpieza de datos
-El primer paso para la realizacion del proyecto es la adecuacion del dataset para poder ser utilizado correctamente por
-los algoritmos de inteligencia artificial. Para esto se realizo una limpieza de los datos, eliminando aquellos que no 
-sean necesarios para las predicciones de los modelos, tales como, datos de temporada, creacion de partida, modo de juego
-(solo nos enfocamos en el modo de juego classic) y estadisticas de los jugadores al finalizar la partida.
+### Estructura del dataset
+El dataset utilizado para la realización del proyecto fue obtenido de la plataforma Kaggle, este se encuentra en 
+formato `pickle` y contiene datos de partidas de League of Legends en las categorías de maestro, gran maestro y 
+retador de la región de Corea durante temporada 2020.  
+En las siguientes imágenes se observan las columnas del dataset.  
+![img.png](images/dataframe/img.png)
+![img.png](images/dataframe/img2.png)  
+Dentro de la columna `participants` se encuentran los datos de los jugadores de cada equipo, el siguiente es un ejemplo 
+de los datos para un jugador en particular.  
+``{'participantId': 1,
+ 'teamId': 100,
+ 'championId': 7,
+ 'stats': {'participantId': 1,
+  'wardsPlaced': 6,
+  'wardsKilled': 1,
+  'firstBloodKill': True,
+  'firstBloodAssist': False,
+  'firstTowerKill': False,
+  'firstTowerAssist': False,
+  'firstInhibitorKill': False,
+  'firstInhibitorAssist': False},
+ 'role': 'DUO_CARRY',
+ 'lane': 'MIDDLE'}``  
 
-Tambien se modifico la presentacion de los datos, ya que estos se encontraban almacenados en estructuras de datos, tales
+La columna `teams` contiene los datos de los equipos (dos por partida), el siguiente es un ejemplo de los datos para 
+un equipo en particular.  
+``{'teamId': 100,
+ 'win': 'Win',
+ 'firstBlood': True,
+ 'firstTower': False,
+ 'firstInhibitor': False,
+ 'firstBaron': False,
+ 'firstDragon': False,
+ 'firstRiftHerald': False,
+ 'towerKills': 1,
+ 'inhibitorKills': 0,
+ 'baronKills': 0,
+ 'dragonKills': 0,
+ 'vilemawKills': 0,
+ 'riftHeraldKills': 0,
+ 'dominionVictoryScore': 0,
+ 'bans': [{'championId': 238, 'pickTurn': 1},
+  {'championId': 350, 'pickTurn': 2},
+  {'championId': 523, 'pickTurn': 3},
+  {'championId': 875, 'pickTurn': 4},
+  {'championId': 523, 'pickTurn': 5}]}  ``
+
+
+
+### Preprocesamiento de datos
+El primer paso para la realización del proyecto es la adecuación del dataset para poder ser utilizado correctamente por
+los algoritmos de inteligencia artificial. Para esto se realizó una limpieza de los datos, eliminando aquellos que no 
+sean necesarios para las predicciones de los modelos, tales como, datos de temporada, creación de partida, modo de juego
+(solo nos enfocamos en el modo de juego classic) y estadísticas de los jugadores al finalizar la partida.  
+Como la idea del proyecto es predecir el resultado de una partida teniendo en cuenta únicamente datos del inicio de la 
+partida, es decir, los primeros 10 minutos, se hizo un filtrado de los datos que no se encuentren dentro de este rango.  
+
+También se modificó la presentación de los datos, ya que estos se encontraban almacenados en estructuras de datos, tales
 como listas o diccionarios, dificultando su uso. Para ello se crearon nuevas columnas en el dataset, donde se guardaran
 los datos de dichas estructuras.
 
-Finalmente se transformaron los datos categoricos en datos numericos, como por ejemplo, transformar los valores True y 
+Finalmente, se transformaron los datos categóricos en datos numéricos, como por ejemplo, transformar los valores True y 
 False en 1 y 0 respectivamente, o transformar los nombres de los campeones en numeros enteros. Esto se realizo con el 
-fin de que los algoritmos puedan trabajar de forma correcta con los datos.
+fin de que los algoritmos puedan trabajar de forma correcta con los datos.  
+
+En la siguiente imagen se puede observar el dataset luego de la limpieza y transformación de datos.  
+![img.png](images/dataframe/img3.png)  
+![img.png](images/dataframe/img4.png)
+![img.png](images/dataframe/img5.png)
+![img.png](images/dataframe/img6.png)
 
 La principal metrica que se utilizará para la evaluación del modelo será la cantidad de partidas predichas correctamente
-sobre la cantidad total de partidas. sobre esta metrica se calculará la precision, sensibilidad, exactitud y F-score.
+sobre la cantidad total de partidas. Sobre esta metrica se calculará la precision, sensibilidad, exactitud y F-score.
 
 ### Random Forest
 
