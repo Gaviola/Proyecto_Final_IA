@@ -233,9 +233,9 @@ También se realizó un análisis de la importancia de las distintas variables p
 de prediccion con random forest. En las imagenes se puede observar que la variable mas influyentes es 'firstTower', 
 mientras que las variables 'ban1', 'ban2', 'champ1', 'champ2', etc no realizan un aporte significativo al modelo.
 
-![RF_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/ab808f44-08e8-43a6-aa57-61afef6d75c4)
+![RF_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/68f438ec-a252-4805-90ed-f12b21c80eda)
 
-![RF_importancia_columnas_grafico](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/cfa057cf-fb63-4a1c-b661-4508a8d30f1e)
+![RF_importancia_columnas_grafico](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/d56d72ef-8568-4cc1-900e-9f6d8d2922f6)
 
 ### Gradient Boosting
 
@@ -252,25 +252,24 @@ embargo, al igual que en random forest, a la hora de modificar los parametros de
 conjunto de prueba, pero si en el conjunto de entrenamiento en donde se llego a un 88%, lo que indica que lo unico que
 logramos modificando dichos parametros es un sobreajuste del modelo.
 
-Las metricas de sensibilidad, exactitud y F-score se encontraban entre un 73% en el conjunto de prueba y un 83% en el
+Las metricas de sensibilidad, exactitud y F-score se encontraban entre un 75% en el conjunto de prueba y un 85% en el
 conjunto de entrenamiento.
 
 Las siguientes imagenes muestran las matrices de confusion y metricas del modelo
 
 **Conjunto de Prueba**
 
-![B_matriz_y_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/deeb99c1-ce57-4f17-8aa1-1dc2def7e3ae)
+![B_matriz_y_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/f10adf6a-5732-4590-a44f-bf28afa655a5)
 
 **Conjunto de Entrenamiento**
 
-![B_matriz_y_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/e25de8a1-0492-45fb-aaa9-d6882e43624d)
+![B_matriz_y_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/2677ab3f-7d1a-484a-89b1-737533483b46)
 
 Al analizar las variables mas importantes con el modelo de boosting nos encontramos con un escenario similar al modelo
 de random forest en donde la variable mas importante es 'firstTower' y las variables 'ban' y 'champ' no realizan un 
 gran aporte.
 
-![B_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/0eb113a6-b98d-48a3-9f87-cdf3a8c2be1c)
-
+![B_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/8e270da6-c9e6-4369-9f78-50e1722365fb)
 
 
 ---
