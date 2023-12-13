@@ -292,3 +292,13 @@ gran aporte.
 [2] Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani.An Introduction to Statistical Learning with 
 Applications in R. 
 
+[3] scikit-learn developers (2023). sklearn.ensamble.RandomForestClassifier. Disponible en: 
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier
+
+[4] scikit-learn developers (2023). sklearn.ensamble.GradientBoostingClassifier. Disponible en: 
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html#sklearn.ensemble.GradientBoostingClassifier
+
+[6] sckit-learn developers (2023). sklearn.ensamble.HistGradientBoostingRegressor. Disponible en: 
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor
+
+[7] xgboost developers (2022). xgboost. Disponible en: https://xgboost.readthedocs.io/en/latest/
