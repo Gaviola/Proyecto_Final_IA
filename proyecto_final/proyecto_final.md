@@ -269,7 +269,7 @@ Al analizar las variables mas importantes con el modelo de boosting nos encontra
 de random forest en donde la variable mas importante es 'firstTower' y las variables 'ban' y 'champ' no realizan un 
 gran aporte.
 
-![B_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/8e270da6-c9e6-4369-9f78-50e1722365fb)
+![img.png](images/boosting/feature_importance.png)
 
 ### Random Forest para prediccion de tiempo de partida
 
@@ -306,27 +306,67 @@ clasificacion realizaban el mayor aporte al modelo, mientras que en este caso so
 Para la aplicacion de este modelos se utilizo la libreria `sklearn` para la creacion del modelo de boosting basado en 
 histogramas. Tambien se hizo uso de las librerias `pandas` para la manipulacion de datos.
 
-En este modelos se hizo uso como metricas....
+En este modelo también se utilizaron como métricas de evaluación el error cuadrático medio, la raíz del error 
+cuadrático medio, la media del error absoluto y el coeficiente de determinación. A continuación se observan los 
+resultados obtenidos.
+
+**Conjunto de Prueba**
+
+![img.png](images/time_prediction_boosting/metricas_test.png)
+
+**Conjunto de Entrenamiento**
+
+![img.png](images/time_prediction_boosting/metricas_train.png)
+
+A continuación se observan distintos gráficos que dan un visión más clara de los resultados obtenidos y del funcionamiento 
+del modelo.
+
+**Diagrama de dispersión**
+
+![img.png](images/time_prediction_boosting/disgrama_dispersion.png)
+
+Se puede ver que el modelo presenta un rango de error mayor en las partidas que duran al rededor de 1000 segundos. 
+También se observa que el modelo tiene un tipo de techo alrededor de los 1800 segundos (30 minutos). Esto puede deberse a que partidas 
+de más de 30 minutos son menos frecuentes y, por lo tanto, el modelo no está tan entrenado para predecir estos casos.  
 
 
+En el siguiente gráfico se visualiza la distribución de la duración de las partidas en el dataset.
+
+![img.png](images/time_prediction_boosting/distribucion_duracion.png)
 
 
+**Histograma de errores**
+
+![img.png](images/time_prediction_boosting/histograma_errores.png)
+
+En este gáfico se observa la distribución de los errores cometidos por el modelo. Se puede ver que la mayoría de los 
+errores se encuentran entre los -76 y 24 segundos, siendo esto un error aceptable para el modelo.
+
+
+**Curva de aprendizaje**
+
+![img.png](images/time_prediction_boosting/curva_aprendizaje.png)
+
+Se puede ver que cuando el conjunto de entrenamiento es de un tamaño mayor a 20000 muestras, el error cuadrático medio 
+se mantiene constante. Esto puede deberse a que el modelo ya está entrenado con una cantidad suficiente de datos y no 
+necesita más para mejorar su precisión.
 
 ---
 
 ## Análisis y discusión de resultados
 
-a la hora de predecir las partidas se observa que los modelos de clasificacion utilizados obtienen resultados similares,
+A la hora de predecir el resultado de las partidas se observa que los modelos de clasificacion utilizados obtienen resultados similares,
 tanto en las metricas como en las valoraciones de las variables predictoras. Algunas de las razones a las que se les 
 pueden atribuir estos resultados son las siguientes:
-* La variables 'firstTower', que es la que mas influye en la prediccion, puede deberse a que dicha variable puede darse
-en una etapa mas tardia de la partida en contraste con las otras variables analizadas por el modelo. Un caso similar 
+* La variable 'firstTower' es la más influyente en la prediccion del resultado, esto puede deberse a que la destrucción de la primera
+torre no necesariamente se da en una etapa temprana de la partida en contraste con las otras variables analizadas por el modelo. Un caso similar 
 ocurre con la variable 'firstBlood'.
-* Las variables 'ban' y 'champ' sorpresivamente no realizan un aporte significativo al modelo. Algunas hipotesis al
-respecto de este resultado puede deberse a que, al estar evaluando datos de partidas competitivas de corea (region mas
-competitiva de LoL), los jugadores suelen utilizar aquellos campeones ya consolidados en el meta del juego o simplemente
-poseen una amplia habilidad y conocimiento de los campeones provocando que durante la seleccion y baneo de campeones se
-contrarresten entre si, desembocando en la poca influencia en el resultado final.
+* Las variables 'ban' y 'champ' muestran, de manera sorprendente, un aporte insignificante al modelo. 
+Diversas hipótesis podrían explicar este resultado. Por ejemplo, al evaluar datos de partidas competitivas en la región de Corea, 
+conocida por ser la más competitiva en el juego League of Legends, los jugadores tienden a seleccionar campeones 
+ya consolidados en la actualidad del juego. Además, es posible que los jugadores posean una gran habilidad 
+y conocimiento de los campeones, lo que resulta en un contrarresto efectivo durante la fase de selección y ban, llevando 
+a una influencia limitada en el resultado final del juego.
 * La variable 'goldPerMin0-10' se ve que tanto en boosting como en random forest realiza un aporte mayor que por ejemplo
 'firstBlood' o 'firstDragon'. Esto nos indica que la cantidad de oro obtenida, puede ser un factor determinante a la 
 hora de definir una partida. Dicho resultado se ve potenciado debido a la habilidad de los jugadores de la redion de 
@@ -334,10 +374,16 @@ corea en donde, al ser partidas tan reñidas, la resolucion de la misma puede da
 
 A la hora de predecir el tiempo de partida, se observa que la dstribucion de las partidas tiende a una distribucion
 normal, con una media de 1471 segundos (24,5 minutos) aunque existen ciertos casos donde no se acoplan a la distribucion
-normal. Estas partidas generalmente tienden a durar menos de 1000 segundos (16,6 minutos) o incluso  menos de 500 
+normal. Estas partidas generalmente tienden a durar menos de 1000 segundos (16,6 minutos) o incluso menos de 500 
 segundos (8.3 minutos). Dichos casos atipicos puede deberse a un desbalance en la habilidad de los participantes, provocando la pronta
 finalizacion de la partida. Otra posible razon puede ser el abandono de alguno de los participantes, lo que explicaria 
 aquellas partidas que duran menos de 500 segundos.
+
+En el caso del modelo de Random Forest para la prediccion de tiempo de partida, se observa una gran diferencia en las métricas 
+obtenidas para el conjunto de entrenamiento y el conjunto de prueba. Esto se debe a que el modelo se encuentra sobreajustado 
+a los datos de entrenamiento, por lo que no es capaz de generalizar correctamente.  
+Por el contrario, el modelo de Gradient Boosting para la prediccion de tiempo de partida, obtiene resultados similares en 
+ambos conjuntos de datos, lo que indica que el modelo es capaz de generalizar correctamente.
 
 Al analizar las variables predictoras, se observa que las variables de gran importancia en los modelos de clasificacion
 realizan un aporte mucho menor en los modelos de regresion. Una posible respuesta a esto se debe a que dichas variables,
@@ -363,6 +409,9 @@ que el modelo no es capaz de diferenciar entre un buen o mal jugador, afectando 
 los modelos son incapaces de tener en cuenta factores humanos como el estado de animo, la concentracion, las 
 distraccines o incluso los perifericos utlizados por los jugadores.
 
+Una posible mejora a los modelos implementados seria la incorporación de datos específicos sobre diferentes jugadores 
+para poder diferenciar entre un buen o mal jugador o el desempeño de cada jugador con un campeón en particular. De esta 
+manera se podría obtener un modelo más preciso y robusto.
 
 ---
 
