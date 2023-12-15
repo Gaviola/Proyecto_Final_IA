@@ -192,7 +192,7 @@ En la siguiente imagen se puede observar el dataset luego de la limpieza y trans
 La principal metrica que se utilizará para la evaluación del modelo será la cantidad de partidas predichas correctamente
 sobre la cantidad total de partidas. Sobre esta metrica se calculará la precision, sensibilidad, exactitud y F-score.
 
-### Random Forest
+### Random Forest para prediccion de partidas
 
 Para la aplicación de este modelo se utilizó la libreria de `scikit-learn`. Tambien se hizo uso de las librerias `pandas`
 y `numpy` para la manipulacion de datos y `matplotlib` y `seaborn` para realizar ciertos graficos de los datos y 
@@ -237,7 +237,7 @@ mientras que las variables 'ban1', 'ban2', 'champ1', 'champ2', etc no realizan u
 
 ![RF_importancia_columnas_grafico](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/d56d72ef-8568-4cc1-900e-9f6d8d2922f6)
 
-### Gradient Boosting
+### Gradient Boosting para prediccion de partidas
 
 Se aplicó también el algoritmo de Gradient Boosting para la realización del modelo de predicción. Este es una variante 
 del algoritmo de Boosting en el que se van creando secuencialmente distintos modelos simples de árboles de decision, donde 
@@ -271,15 +271,97 @@ gran aporte.
 
 ![B_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/8e270da6-c9e6-4369-9f78-50e1722365fb)
 
+### Random Forest para prediccion de tiempo de partida
+
+Para la aplicacion de este modelo se utilizo la libreria de `scikit-learn` aunque en este caso se hizo uso de arboles de
+regresion en lugar de arboles de clasificacion. Tambien se hizo uso de las librerias `pandas`.
+
+Para este modelo se utilizaron como metricas el error cuadratico medio, la raiz del error cuadratico medio, la media del
+error absoluto y el coeficiente de determinacion. Dando como resultado los siguintes valores.
+
+**Conjunto de Prueba**
+
+![prediccion_tiempo_metricas_test_RF.png](images%2Ftime_prediction_RF%2Fprediccion_tiempo_metricas_test_RF.png)
+
+**Conjunto de Entrenamiento**
+
+![prediccion_tiempo_metricas_train_RF.png](images%2Ftime_prediction_RF%2Fprediccion_tiempo_metricas_train_RF.png)
+
+
+La siguiente imagen muestra la distribucion de las prediccions de tiempo realizadas por el modelo.
+
+![Distribucion_druacion_de_partidas.png](images%2Ftime_prediction_RF%2FDistribucion_druacion_de_partidas.png)
+
+Al igual que en los modelos de clasificacion, se analizo la importancia de las variables predictoras. En este caso, se 
+puede observar un resultado inverso en algunas variables como 'firstTower' y 'firstBlood' que en los modelos de
+clasificacion realizaban el mayor aporte al modelo, mientras que en este caso son las variables que menos aportan.
+
+![importancia_columnas_prediccion_RF.png](images%2Ftime_prediction_RF%2Fimportancia_columnas_prediccion_RF.png)
+
+![importancia_columnas_prediccion_grafico_RF.png](images%2Ftime_prediction_RF%2Fimportancia_columnas_prediccion_grafico_RF.png)
+
+
+### Gradient Boosting para prediccion de tiempo de partida
+
+Para la aplicacion de este modelos se utilizo la libreria `sklearn` para la creacion del modelo de boosting basado en 
+histogramas. Tambien se hizo uso de las librerias `pandas` para la manipulacion de datos.
+
+En este modelos se hizo uso como metricas....
+
+
+
+
 
 ---
 
 ## Análisis y discusión de resultados
 
+a la hora de predecir las partidas se observa que los modelos de clasificacion utilizados obtienen resultados similares,
+tanto en las metricas como en las valoraciones de las variables predictoras. Algunas de las razones a las que se les 
+pueden atribuir estos resultados son las siguientes:
+* La variables 'firstTower', que es la que mas influye en la prediccion, puede deberse a que dicha variable puede darse
+en una etapa mas tardia de la partida en contraste con las otras variables analizadas por el modelo. Un caso similar 
+ocurre con la variable 'firstBlood'.
+* Las variables 'ban' y 'champ' sorpresivamente no realizan un aporte significativo al modelo. Algunas hipotesis al
+respecto de este resultado puede deberse a que, al estar evaluando datos de partidas competitivas de corea (region mas
+competitiva de LoL), los jugadores suelen utilizar aquellos campeones ya consolidados en el meta del juego o simplemente
+poseen una amplia habilidad y conocimiento de los campeones provocando que durante la seleccion y baneo de campeones se
+contrarresten entre si, desembocando en la poca influencia en el resultado final.
+* La variable 'goldPerMin0-10' se ve que tanto en boosting como en random forest realiza un aporte mayor que por ejemplo
+'firstBlood' o 'firstDragon'. Esto nos indica que la cantidad de oro obtenida, puede ser un factor determinante a la 
+hora de definir una partida. Dicho resultado se ve potenciado debido a la habilidad de los jugadores de la redion de 
+corea en donde, al ser partidas tan reñidas, la resolucion de la misma puede darse en pequeños detalles como estos.
+
+A la hora de predecir el tiempo de partida, se observa que la dstribucion de las partidas tiende a una distribucion
+normal, con una media de 1471 segundos (24,5 minutos) aunque existen ciertos casos donde no se acoplan a la distribucion
+normal. Estas partidas generalmente tienden a durar menos de 1000 segundos (16,6 minutos) o incluso  menos de 500 
+segundos (8.3 minutos). Dichos casos atipicos puede deberse a un desbalance en la habilidad de los participantes, provocando la pronta
+finalizacion de la partida. Otra posible razon puede ser el abandono de alguno de los participantes, lo que explicaria 
+aquellas partidas que duran menos de 500 segundos.
+
+Al analizar las variables predictoras, se observa que las variables de gran importancia en los modelos de clasificacion
+realizan un aporte mucho menor en los modelos de regresion. Una posible respuesta a esto se debe a que dichas variables,
+como el caso de 'firstTower', 'firstBlood' o 'firstDragon', ocurren practicamente en cada partida y generalmente en los
+primeros minutos de la misma, provocando que no representen un gran factor a la hora de determinar la duracion de la 
+misma. Por el otro lado, las variables que que analizan la cantidad de oro, experiencia o daño en un determinado lapso
+de tiempo si ofrecen un aporte significativo ya que estos valores pueden denotar cuando una partida finzaliza 
+prematuramente.
 
 ---
 
 ## Conclusiones finales
+
+En base a los resultados obtenidos de los distintos modelos implementados y las distintas metricas utilizadas, se obtuvo
+unos buenos resultados a la hora de predecir el resultado de una partida de League of Legends. Sin embargo, dichos 
+resultados pueden estar sobreajustados al estilo de juego de la region de corea en las altas ligas, por lo que dichos 
+resultados pueden no ser extrapolables a otras regiones o ligas. Ademas, los datos utilizados en el proyecto se
+encuentras desactualizados, debido a la dificultad de obtener datos recientes, por lo que los resultados pueden no ser 
+los mismos en la actualidad. 
+
+Tambien es importante tener en cuenta que dentro de los datos, no se encuentran las estadisticas de los jugadores por lo
+que el modelo no es capaz de diferenciar entre un buen o mal jugador, afectando la prediccion del mismo. Ademas de que 
+los modelos son incapaces de tener en cuenta factores humanos como el estado de animo, la concentracion, las 
+distraccines o incluso los perifericos utlizados por los jugadores.
 
 
 ---
