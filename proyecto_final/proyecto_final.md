@@ -13,8 +13,8 @@
 ## Introducción
 
 
-El propósito de este proyecto es anticipar el resultado de una partida en League of Legends, determinando si un equipo 
-en particular alcanzará la victoria. Para lograrlo, se emplearon algoritmos de Inteligencia Artificial, utilizando datos 
+El propósito de este proyecto es anticipar el resultado de una partida en League of Legends, determinando tanto si un equipo 
+en particular alcanzará la victoria, como la duración del encuentro. Para lograrlo, se emplearon algoritmos de Inteligencia Artificial, utilizando datos 
 relacionados con ambos equipos que participan en el enfrentamiento, así como características clave que definen el inicio 
 de la partida.
 
@@ -23,7 +23,37 @@ estrategia en tiempo real que ha alcanzado una inmensa popularidad desde su lanz
 equipos de cinco jugadores se enfrentan en un campo de batalla virtual, cada uno controlando un campeón con habilidades 
 únicas. El juego ha dejado una marca indeleble en el mundo de los esports, destacándose por su enorme base de jugadores,
 la celebración del Campeonato Mundial anual con premios millonarios, y el establecimiento de ligas profesionales en
-diversas regiones.
+diversas regiones.  
+A continuación, se presentan algunos conceptos clave relacionados con League of Legends:
+
+- **Campeones**: En LoL, los jugadores toman el control de personajes únicos llamados "campeones". Cada campeón tiene habilidades y 
+roles distintivos en el campo de batalla. La elección estratégica de campeones es esencial para la victoria, ya que cada 
+uno contribuye de manera diferente al equipo.  
+
+- **Invocadores**: Los jugadores son conocidos como "invocadores". Controlan a los campeones y toman decisiones tácticas durante la partida. 
+El término "invocador" refleja el hecho de que los jugadores "invocan" a sus campeones para luchar en su nombre.  
+
+- **Mapa**: La acción principal en LoL tiene lugar en un mapa específico llamado "Grieta del Invocador". Este mapa está dividido en 
+tres carriles (superior, central e inferior) y cuenta con selvas, torres y bases. El objetivo es destruir el nexo enemigo 
+ubicado en la base.  
+
+- **Oro**: Los jugadores ganan oro al derrotar a los enemigos y destruir torres. El oro se puede utilizar para comprar objetos que 
+mejoran el rendimiento de los campeones.
+
+- **Experiencia**: Los jugadores ganan experiencia al derrotar a los enemigos y destruir torres. La experiencia se utiliza para 
+mejorar las habilidades de los campeones.
+
+- **Dragones y Baron Nashor**: Los dragones son criaturas poderosas que aparecen en la selva del mapa. Derrotar a un dragón otorga beneficios al equipo. 
+Baron Nashor es una bestia aún más formidable que proporciona recompensas significativas y puede cambiar el curso de la partida.  
+
+- **Objetivos y Torres**: Además de eliminar al equipo contrario, los jugadores deben destruir torres enemigas y objetivos como inhibidores para 
+abrir el camino hacia el nexo enemigo. La destrucción de estos elementos proporciona ventajas estratégicas.  
+
+- **Roles**: Los jugadores asumen roles específicos en el equipo, como asesino, tirador, tanque o soporte. 
+La combinación equilibrada de roles es esencial para abordar diferentes situaciones de juego.
+
+- **Meta del Juego**: El objetivo final es destruir el nexo enemigo, pero el camino hacia la victoria implica tomar decisiones estratégicas, 
+coordinarse con el equipo y adaptarse a las tácticas enemigas.
 
 Por todo lo mencionado anteriormente, se puede considerar de una gran importancia el poder predecir el resultado de una
 partida de LoL, ya que esto puede ser utilizado, ya sea para apuestas deportivas, mejorar el rendimiento de un equipo o
@@ -122,9 +152,15 @@ del algoritmo es el siguiente:
 El dataset utilizado para la realización del proyecto fue obtenido de la plataforma Kaggle, este se encuentra en 
 formato `pickle` y contiene datos de partidas de League of Legends en las categorías de maestro, gran maestro y 
 retador de la región de Corea durante temporada 2020.  
-En las siguientes imágenes se observan las columnas del dataset.  
-![img.png](images/dataframe/img.png)
+En las figuras [1] y [2] se observan las columnas del dataset.  
+
+![img.png](images/dataframe/img.png)  
+Figura[1]: Columnas del dataset.
+
 ![img.png](images/dataframe/img2.png)  
+Figura[2]: Columnas del dataset.
+
+
 Dentro de la columna `participants` se encuentran los datos de los jugadores de cada equipo, el siguiente es un ejemplo 
 de los datos para un jugador en particular.  
 ``{'participantId': 1,
@@ -183,11 +219,15 @@ Finalmente, se transformaron los datos categóricos en datos numéricos, como po
 False en 1 y 0 respectivamente, o transformar los nombres de los campeones en numeros enteros. Esto se realizo con el 
 fin de que los algoritmos puedan trabajar de forma correcta con los datos.  
 
-En la siguiente imagen se puede observar el dataset luego de la limpieza y transformación de datos.  
+En las figuras [3], [4], [5] y [6] se puede observar el dataset luego de la limpieza y transformación de datos.
 ![img.png](images/dataframe/img3.png)  
-![img.png](images/dataframe/img4.png)
-![img.png](images/dataframe/img5.png)
-![img.png](images/dataframe/img6.png)
+Figura[3]: Columnas del dataset pre procesado.  
+![img.png](images/dataframe/img4.png)  
+Figura[4]: Columnas del dataset pre procesado.
+![img.png](images/dataframe/img5.png)  
+Figura[5]: Columnas del dataset pre procesado.  
+![img.png](images/dataframe/img6.png)  
+Figura[6]: Columnas del dataset pre procesado.  
 
 La principal metrica que se utilizará para la evaluación del modelo será la cantidad de partidas predichas correctamente
 sobre la cantidad total de partidas. Sobre esta metrica se calculará la precision, sensibilidad, exactitud y F-score.
@@ -200,10 +240,12 @@ resultados.
 
 Antes de realizar el modelo de prediccion, se analizo el balanceo de clases del dataset. Se observó que dentro del mismo
 habia una cantidad similar de partidas ganadas como de partidas perdidadas, por lo que no fue necesario el uso de 
-tecnicas como oversampling, undersampling o SMOTE para balancear las clases. En la imagen se muestra como se distriyen
+tecnicas como oversampling, undersampling o SMOTE para balancear las clases. En la figura [7] se muestra como se distribuyen
 las clases dentro del conjunto de entrenamiento y el conjunto de prueba.
 
-![RF_balance_clases](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/10f5e3ff-a780-4ed0-aef8-3b7d332de9c3)
+![RF_balance_clases](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/10f5e3ff-a780-4ed0-aef8-3b7d332de9c3)  
+Figura[7]: Balance de clases del dataset.  
+
 
 
 Al utilizar el algoritmo Random Forest se notó que la precision del modelo se encontraba entre un 70% y 75%
@@ -214,30 +256,38 @@ obtienen mejoras significativas en las metricas del modelo.
 
 Al igual que la metrica de precision, tanto la sensibilidad, exactitud y F-score se encontraban entre un 70% y 75%
 
-Las siguientes imagenes muestran las matrices de confusion y metricas del modelo con un random_state = 42.
+Las figuras [8], [9], [10] y [11] muestran las matrices de confusion y métricas del modelo con un random_state = 42.
 
 **Conjunto de Prueba**
 
-![RF_matriz_confusion_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/e1b4882f-3ad4-40ad-9460-c49f49a6b1dd)
+![RF_matriz_confusion_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/e1b4882f-3ad4-40ad-9460-c49f49a6b1dd)  
+Figura[8]: Matriz de confusion del modelo con datos de prueba.
 
 ![RF_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/832b1a53-784e-4077-ab37-a46d2b4a0273)
+Figura[9]: Metricas del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
-![RF_matriz_confusion_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/4b2c1869-e361-46d8-aca5-a3bc49e3130b)
+![RF_matriz_confusion_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/4b2c1869-e361-46d8-aca5-a3bc49e3130b)  
+Figura[10]: Matriz de confusion del modelo con datos de entrenamiento.
 
-![RF_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/a7c4fc00-ae7b-40ea-9179-e839b9345eaf)
+![RF_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/a7c4fc00-ae7b-40ea-9179-e839b9345eaf)  
+Figura[11]: Metricas del modelo con datos de entrenamiento.
 
 
 También se realizó un análisis de la importancia de las distintas variables predictoras a la hora de realizar el modelo
-de prediccion con random forest. En las imagenes se puede observar que la variable mas influyentes es 'firstTower', 
-mientras que las variables 'ban1', 'ban2', 'champ1', 'champ2', etc no realizan un aporte significativo al modelo.
+de predicción con random forest.  
+En la figura [12] se puede observar que la variable más influyente es 'firstTower', esto tiene sentido ya que el hecho de 
+que un equipo destruya la primera torre de la partida puede ser un indicador de que dicho equipo tiene una ventaja que 
+si se mantiene a lo largo de la partida, puede llevar a la victoria.  
+Por otro lado, las variables 'ban1', 'ban2', 'champ1', 'champ2', etc. no realizan un aporte significativo al modelo.  
 
-![RF_importancia_columnas](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/68f438ec-a252-4805-90ed-f12b21c80eda)
 
-![RF_importancia_columnas_grafico](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/d56d72ef-8568-4cc1-900e-9f6d8d2922f6)
 
-### Gradient Boosting para prediccion de partidas
+![RF_importancia_columnas_grafico](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/d56d72ef-8568-4cc1-900e-9f6d8d2922f6)  
+Figura[12]: Importancia de las variables predictoras.
+
+### Gradient Boosting para predicción de partidas
 
 Se aplicó también el algoritmo de Gradient Boosting para la realización del modelo de predicción. Este es una variante 
 del algoritmo de Boosting en el que se van creando secuencialmente distintos modelos simples de árboles de decision, donde 
@@ -255,75 +305,84 @@ logramos modificando dichos parametros es un sobreajuste del modelo.
 Las metricas de sensibilidad, exactitud y F-score se encontraban entre un 75% en el conjunto de prueba y un 85% en el
 conjunto de entrenamiento.
 
-Las siguientes imagenes muestran las matrices de confusion y metricas del modelo
+Las figuras [13] y [14] muestran las matrices de confusion y métricas del modelo
 
 **Conjunto de Prueba**
 
-![B_matriz_y_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/f10adf6a-5732-4590-a44f-bf28afa655a5)
+![B_matriz_y_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/f10adf6a-5732-4590-a44f-bf28afa655a5)  
+Figura[13]: Matriz de confusion del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
-![B_matriz_y_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/2677ab3f-7d1a-484a-89b1-737533483b46)
+![B_matriz_y_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/2677ab3f-7d1a-484a-89b1-737533483b46)  
+Figura[14]: Matriz de confusion del modelo con datos de entrenamiento.
 
 Al analizar las variables mas importantes con el modelo de boosting nos encontramos con un escenario similar al modelo
 de random forest en donde la variable mas importante es 'firstTower' y las variables 'ban' y 'champ' no realizan un 
-gran aporte.
+gran aporte. Esto se puede observar en la figura [15].
 
-![img.png](images/boosting/feature_importance.png)
+![img.png](images/boosting/feature_importance.png)  
+Figura[15]: Importancia de las variables predictoras.
 
-### Random Forest para prediccion de tiempo de partida
+### Random Forest para predicción de tiempo de partida
 
-Para la aplicacion de este modelo se utilizo la libreria de `scikit-learn` aunque en este caso se hizo uso de arboles de
-regresion en lugar de arboles de clasificacion. Tambien se hizo uso de las librerias `pandas`.
+Para la aplicación de este modelo se utilizó la libreria de `scikit-learn` aunque en este caso se hizo uso de árboles de
+regresión en lugar de árboles de clasificación. También se hizo uso de las librerías `pandas`.
 
-Para este modelo se utilizaron como metricas el error cuadratico medio, la raiz del error cuadratico medio, la media del
-error absoluto y el coeficiente de determinacion. Dando como resultado los siguintes valores.
+Para este modelo se utilizaron como métricas el error cuadrático medio, la raíz del error cuadrático medio, la media del
+error absoluto y el coeficiente de determinación. Dando como resultado los valores observados en las figuras [16] y [17].
 
 **Conjunto de Prueba**
 
-![prediccion_tiempo_metricas_test_RF.png](images%2Ftime_prediction_RF%2Fprediccion_tiempo_metricas_test_RF.png)
+![prediccion_tiempo_metricas_test_RF.png](images%2Ftime_prediction_RF%2Fprediccion_tiempo_metricas_test_RF.png)  
+Figura[16]: Metricas del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
-![prediccion_tiempo_metricas_train_RF.png](images%2Ftime_prediction_RF%2Fprediccion_tiempo_metricas_train_RF.png)
+![prediccion_tiempo_metricas_train_RF.png](images%2Ftime_prediction_RF%2Fprediccion_tiempo_metricas_train_RF.png)  
+Figura[17]: Metricas del modelo con datos de entrenamiento.
 
 
-La siguiente imagen muestra la distribucion de las prediccions de tiempo realizadas por el modelo.
-
-![Distribucion_druacion_de_partidas.png](images%2Ftime_prediction_RF%2FDistribucion_druacion_de_partidas.png)
-
-Al igual que en los modelos de clasificacion, se analizo la importancia de las variables predictoras. En este caso, se 
-puede observar un resultado inverso en algunas variables como 'firstTower' y 'firstBlood' que en los modelos de
-clasificacion realizaban el mayor aporte al modelo, mientras que en este caso son las variables que menos aportan.
-
-![importancia_columnas_prediccion_RF.png](images%2Ftime_prediction_RF%2Fimportancia_columnas_prediccion_RF.png)
-
-![importancia_columnas_prediccion_grafico_RF.png](images%2Ftime_prediction_RF%2Fimportancia_columnas_prediccion_grafico_RF.png)
+Al igual que en los modelos de clasificación, se analizó la importancia de las variables predictoras (figura [18]) . 
+En este caso, se puede observar un resultado inverso en algunas variables como 'firstTower' y 'firstBlood' que en los modelos de
+clasificación realizaban el mayor aporte al modelo, mientras que en este caso son las variables que menos aportan. Esto tiene 
+sentido, ya que la destrucción de la primera torre o la primera muerte no tienen una correlación directa con la duración de la partida.
+Las variables que más aportan son las que analizan la cantidad de oro, experiencia o daño en los 
+primeros 10 minutos de la partida. Esto se debe a que dichos valores aportan información sobre el desempeño de los 
+jugadores durante la partida, lo que puede ser un indicador del estado de la partida, es decir, si un equipo tiene una 
+ventaja considerable sobre el otro o no, aportando así información sobre la duración de la partida.  
 
 
-### Gradient Boosting para prediccion de tiempo de partida
+![importancia_columnas_prediccion_grafico_RF.png](images%2Ftime_prediction_RF%2Fimportancia_columnas_prediccion_grafico_RF.png)  
+Figura[18]: Importancia de las variables predictoras.
 
-Para la aplicacion de este modelos se utilizo la libreria `sklearn` para la creacion del modelo de boosting basado en 
-histogramas. Tambien se hizo uso de las librerias `pandas` para la manipulacion de datos.
+
+### Gradient Boosting para predicción de tiempo de partida
+
+Para la aplicación de este modelo se utilizó la libreria `sklearn` para la creación del modelo de boosting basado en 
+histogramas. También se hizo uso de las librerías `pandas` para la manipulación de datos.
 
 En este modelo también se utilizaron como métricas de evaluación el error cuadrático medio, la raíz del error 
-cuadrático medio, la media del error absoluto y el coeficiente de determinación. A continuación se observan los 
-resultados obtenidos.
+cuadrático medio, la media del error absoluto y el coeficiente de determinación. 
+Las figuras [19] y [20] muestran las métricas obtenidas para el modelo de boosting.
 
 **Conjunto de Prueba**
 
 ![img.png](images/time_prediction_boosting/metricas_test.png)
+Figura[19]: Metricas del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
-![img.png](images/time_prediction_boosting/metricas_train.png)
+![img.png](images/time_prediction_boosting/metricas_train.png)  
+Figura[20]: Metricas del modelo con datos de entrenamiento.
 
 A continuación se observan distintos gráficos que dan un visión más clara de los resultados obtenidos y del funcionamiento 
 del modelo.
 
 **Diagrama de dispersión**
 
-![img.png](images/time_prediction_boosting/disgrama_dispersion.png)
+![img.png](images/time_prediction_boosting/disgrama_dispersion.png)  
+Figura[21]: Diagrama de dispersión de los resultados obtenidos por el modelo.
 
 Se puede ver que el modelo presenta un rango de error mayor en las partidas que duran al rededor de 1000 segundos. 
 También se observa que el modelo tiene un tipo de techo alrededor de los 1800 segundos (30 minutos). Esto puede deberse a que partidas 
@@ -332,20 +391,23 @@ de más de 30 minutos son menos frecuentes y, por lo tanto, el modelo no está t
 
 En el siguiente gráfico se visualiza la distribución de la duración de las partidas en el dataset.
 
-![img.png](images/time_prediction_boosting/distribucion_duracion.png)
+![img.png](images/time_prediction_boosting/distribucion_duracion.png)  
+Figura[22]: Distribución de la duración de las partidas.
 
 
 **Histograma de errores**
 
-![img.png](images/time_prediction_boosting/histograma_errores.png)
+![img.png](images/time_prediction_boosting/histograma_errores.png)  
+Figura[23]: Histograma de los errores cometidos por el modelo.
 
-En este gáfico se observa la distribución de los errores cometidos por el modelo. Se puede ver que la mayoría de los 
+En este gráfico se observa la distribución de los errores cometidos por el modelo. Se puede ver que la mayoría de los 
 errores se encuentran entre los -76 y 24 segundos, siendo esto un error aceptable para el modelo.
 
 
 **Curva de aprendizaje**
 
-![img.png](images/time_prediction_boosting/curva_aprendizaje.png)
+![img.png](images/time_prediction_boosting/curva_aprendizaje.png)  
+Figura[24]: Curva de aprendizaje del modelo.
 
 Se puede ver que cuando el conjunto de entrenamiento es de un tamaño mayor a 20000 muestras, el error cuadrático medio 
 se mantiene constante. Esto puede deberse a que el modelo ya está entrenado con una cantidad suficiente de datos y no 
