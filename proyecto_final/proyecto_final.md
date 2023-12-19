@@ -43,8 +43,9 @@ mejoran el rendimiento de los campeones.
 - **Experiencia**: Los jugadores ganan experiencia al derrotar a los enemigos y destruir torres. La experiencia se utiliza para 
 mejorar las habilidades de los campeones.
 
-- **Dragones y Baron Nashor**: Los dragones son criaturas poderosas que aparecen en la selva del mapa. Derrotar a un dragón otorga beneficios al equipo. 
-Baron Nashor es una bestia aún más formidable que proporciona recompensas significativas y puede cambiar el curso de la partida.  
+- **Dragones y Heraldo**: Los dragones y el Heraldo son criaturas poderosas que aparecen en la selva del mapa. Derrotar a alguno de estos
+otorga beneficios al equipo. Baron Nashor es una bestia aún más formidable que proporciona recompensas significativas y 
+puede cambiar el curso de la partida, pero no aparece hasta el minuto 20.  
 
 - **Objetivos y Torres**: Además de eliminar al equipo contrario, los jugadores deben destruir torres enemigas y objetivos como inhibidores para 
 abrir el camino hacia el nexo enemigo. La destrucción de estos elementos proporciona ventajas estratégicas.  
@@ -229,10 +230,25 @@ Figura[5]: Columnas del dataset pre procesado.
 ![img.png](images/dataframe/img6.png)  
 Figura[6]: Columnas del dataset pre procesado.  
 
+**Descripción de las variables**
+ - **gameDuration**: Duración de la partida en segundos.
+ - **firstBlood**: Indica si el equipo obtuvo la primera muerte de la partida.
+ - **firstTower**: Indica si el equipo destruyó la primera torre de la partida.
+ - **firstDragon**: Indica si el equipo obtuvo el primer dragón de la partida.
+ - **firstRiftHerald**: Indica si el equipo obtuvo el primer Heraldo de la Grieta de la partida.
+ - **firstBaron**: Indica si el equipo obtuvo el primer Barón de la partida.
+ - **ban**: Campeones bloqueados por el equipo (5 por equipo).
+ - **champ**: Campeones seleccionados por el equipo (5 por equipo).
+ - **creepsPerMin0-10**: Cantidad de súbditos asesinados por minuto en los primeros 10 minutos de la partida.
+ - **goldPerMin0-10**: Cantidad de oro obtenido por minuto en los primeros 10 minutos de la partida.
+ - **xpPerMin0-10**: Cantidad de experiencia obtenida por minuto en los primeros 10 minutos de la partida.
+ - **damageTakenPerMin0-10**: Cantidad de daño recibido por minuto en los primeros 10 minutos de la partida.
+
+
 La principal metrica que se utilizará para la evaluación del modelo será la cantidad de partidas predichas correctamente
 sobre la cantidad total de partidas. Sobre esta metrica se calculará la precision, sensibilidad, exactitud y F-score.
 
-### Random Forest para prediccion de partidas
+### Random Forest para predicción de partidas
 
 Para la aplicación de este modelo se utilizó la libreria de `scikit-learn`. Tambien se hizo uso de las librerias `pandas`
 y `numpy` para la manipulacion de datos y `matplotlib` y `seaborn` para realizar ciertos graficos de los datos y 
@@ -340,7 +356,7 @@ Figura[16]: Metricas del modelo con datos de prueba.
 **Conjunto de Entrenamiento**
 
 ![prediccion_tiempo_metricas_train_RF.png](images%2Ftime_prediction_RF%2Fprediccion_tiempo_metricas_train_RF.png)  
-Figura[17]: Metricas del modelo con datos de entrenamiento.
+Figura[17]: Métricas del modelo con datos de entrenamiento.
 
 
 Al igual que en los modelos de clasificación, se analizó la importancia de las variables predictoras (figura [18]) . 
@@ -356,6 +372,29 @@ ventaja considerable sobre el otro o no, aportando así información sobre la du
 ![importancia_columnas_prediccion_grafico_RF.png](images%2Ftime_prediction_RF%2Fimportancia_columnas_prediccion_grafico_RF.png)  
 Figura[18]: Importancia de las variables predictoras.
 
+A continuación se observan distintos gráficos que dan una visión más clara de los resultados obtenidos y del funcionamiento 
+del modelo.
+
+**Diagrama de dispersión**
+
+![img.png](images/time_prediction_RF/diagrama-dispersion.png)  
+Figura[19]: Diagrama de dispersión de los resultados obtenidos por el modelo.
+
+**Histograma de duración predicha de partidas**
+
+![img.png](images/time_prediction_RF/histograma-duracion.png)  
+Figura[20]: Histograma de la duración de las partidas predichas por el modelo.
+
+**Curva de aprendizaje**
+
+![img.png](img.png)  
+Figura[21]: Curva de aprendizaje del modelo.  
+
+En la figura [21] se puede apreciar que el modelo se encuentra sobre ajustado a los datos de entrenamiento, ya que el 
+error cuadrático medio se mantiene constante tanto para el conjunto de entrenamiento como para el conjunto de prueba y 
+ambos errores son muy distintos entre sí.
+
+
 
 ### Gradient Boosting para predicción de tiempo de partida
 
@@ -364,54 +403,45 @@ histogramas. También se hizo uso de las librerías `pandas` para la manipulaci�
 
 En este modelo también se utilizaron como métricas de evaluación el error cuadrático medio, la raíz del error 
 cuadrático medio, la media del error absoluto y el coeficiente de determinación. 
-Las figuras [19] y [20] muestran las métricas obtenidas para el modelo de boosting.
+Las figuras [22] y [23] muestran las métricas obtenidas para el modelo de boosting.
 
 **Conjunto de Prueba**
 
 ![img.png](images/time_prediction_boosting/metricas_test.png)
-Figura[19]: Metricas del modelo con datos de prueba.
+Figura[22]: Métricas del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
 ![img.png](images/time_prediction_boosting/metricas_train.png)  
-Figura[20]: Metricas del modelo con datos de entrenamiento.
+Figura[23]: Métricas del modelo con datos de entrenamiento.
 
-A continuación se observan distintos gráficos que dan un visión más clara de los resultados obtenidos y del funcionamiento 
+A continuación se observan distintos gráficos que dan una visión más clara de los resultados obtenidos y del funcionamiento 
 del modelo.
 
 **Diagrama de dispersión**
 
 ![img.png](images/time_prediction_boosting/disgrama_dispersion.png)  
-Figura[21]: Diagrama de dispersión de los resultados obtenidos por el modelo.
+Figura[24]: Diagrama de dispersión de los resultados obtenidos por el modelo.
 
-Se puede ver que el modelo presenta un rango de error mayor en las partidas que duran al rededor de 1000 segundos. 
-También se observa que el modelo tiene un tipo de techo alrededor de los 1800 segundos (30 minutos). Esto puede deberse a que partidas 
+
+Se puede ver en la figura [24] que el modelo presenta un rango de error mayor en las partidas que duran al rededor de 1000 segundos. 
+También se observa que el modelo tiene un techo alrededor de los 1800 segundos (30 minutos). Esto puede deberse a que partidas 
 de más de 30 minutos son menos frecuentes y, por lo tanto, el modelo no está tan entrenado para predecir estos casos.  
-
-
-En el siguiente gráfico se visualiza la distribución de la duración de las partidas en el dataset.
-
-![img.png](images/time_prediction_boosting/distribucion_duracion.png)  
-Figura[22]: Distribución de la duración de las partidas.
-
-
-**Histograma de errores**
-
-![img.png](images/time_prediction_boosting/histograma_errores.png)  
-Figura[23]: Histograma de los errores cometidos por el modelo.
-
-En este gráfico se observa la distribución de los errores cometidos por el modelo. Se puede ver que la mayoría de los 
-errores se encuentran entre los -76 y 24 segundos, siendo esto un error aceptable para el modelo.
 
 
 **Curva de aprendizaje**
 
 ![img.png](images/time_prediction_boosting/curva_aprendizaje.png)  
-Figura[24]: Curva de aprendizaje del modelo.
+Figura[25]: Curva de aprendizaje del modelo.
 
-Se puede ver que cuando el conjunto de entrenamiento es de un tamaño mayor a 20000 muestras, el error cuadrático medio 
+En la figura [25] se ve que cuando el conjunto de entrenamiento es de un tamaño mayor a 20000 muestras, el error cuadrático medio 
 se mantiene constante. Esto puede deberse a que el modelo ya está entrenado con una cantidad suficiente de datos y no 
 necesita más para mejorar su precisión.
+
+Finalmente, en la figura [26] se visualiza la distribución de la duración real de las partidas en el dataset.
+
+![img.png](images/time_prediction_boosting/distribucion_duracion.png)  
+Figura[26]: Distribución de la duración de las partidas con linea punteada indicando la duración media de las partidas.
 
 ---
 
