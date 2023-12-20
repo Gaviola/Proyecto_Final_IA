@@ -387,7 +387,7 @@ Figura[20]: Histograma de la duración de las partidas predichas por el modelo.
 
 **Curva de aprendizaje**
 
-![img.png](img.png)  
+![img.png](images/time_prediction_RF/curva-aprendizaje.png)  
 Figura[21]: Curva de aprendizaje del modelo.  
 
 En la figura [21] se puede apreciar que el modelo se encuentra sobre ajustado a los datos de entrenamiento, ya que el 
