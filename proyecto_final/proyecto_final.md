@@ -484,14 +484,14 @@ de más de 30 minutos son menos frecuentes y, por lo tanto, el modelo no está t
 
 **Histograma de duración predicha de partidas**
 
-![histograma.png](images%2Ftime_prediction_boosting%2Fhistograma.png)
+![histograma.png](images%2Ftime_prediction_boosting%2Fhistograma.png)  
 Figura[25]: Histograma de la duración de las partidas predichas por el modelo.
 
 
 **Curva de aprendizaje**
 
 ![img.png](images/time_prediction_boosting/curva_aprendizaje.png)  
-Figura[25]: Curva de aprendizaje del modelo.
+Figura[26]: Curva de aprendizaje del modelo.
 
 En la figura [26] se ve que cuando el conjunto de entrenamiento es de un tamaño mayor a 40000 muestras, el error cuadrático medio 
 tiende a mantenerse constante. Esto puede deberse a que el modelo ya está entrenado con una cantidad suficiente de datos y no 
