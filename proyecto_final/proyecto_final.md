@@ -88,7 +88,8 @@ lo más temprana posible en la partida.
 Los árboles de decision representan una función que toma como entrada un vector de atributos y valores y devuelve como 
 resultado una decision. Cada nodo interno del arbol representa una prueba sobre un atributo, cada rama representa el
 resultado de una prueba y cada nodo hoja representa una clase. El camino desde la raíz hasta una hoja representa una
-regla de clasificación.
+regla de clasificación. [1] Stuart Russell and Peter Norvig. Artificial Intelligence: A Modern Approach (3rd. ed.). 
+Pearson, 2010.
 
 El algoritmo en pseudocodigo utilizado para la creacion de un arbol de decision es el siguiente:
 * plurality-value devuelve el valor mas comun entre los ejemplos.
@@ -118,16 +119,19 @@ decision, de la misma manera que lo hace un algoritmo de bagging, pero en este c
 del modelo va a crear nuevas ramas, se selecciona un subconjunto aleatorio de `m` variables predictoras del total de 
 variables predictoras `p`. En cada creación de ramas se seleccionan `m` variables predictoras distintas. Esto se hace para
 evitar que los árboles esten altamente correlacionados entre sí y asi tener un modelo más confiable. Generalmente, se
-utiliza `m = sqrt(p)` para la cantidad de variables seleccionadas.
+utiliza `m = sqrt(p)` para la cantidad de variables seleccionadas. [2] Gareth James, Daniela Witten, Trevor Hastie and 
+Robert Tibshirani.An Introduction to Statistical Learning with Applications in R.
 
 **Boosting**
 
 Boosting es un algoritmo de aprendizaje que, al igual que Random Forest, se basa en árboles de decision para realizar 
 regresiones o clasificaciones. En boosting no se involucran técnicas de boostraping, sino que se utilizan distintas
-versiones modificadas de los datos de entrenamiento. El algoritmo combina multiples árboles de decision 
-para crear un modelo de predicción. Es importante destacar que los árboles de decision son
-pequeños, es decir, tienen pocos niveles y pocos nodos. Esto mejora lentamente el rendimiento de f(x). El pseudocodigo
-del algoritmo es el siguiente:
+versiones modificadas de los datos de entrenamiento. El algoritmo combina multiples árboles de decision, ˆf 1,..., ˆf B
+para crear un modelo de predicción f(x). Es importante destacar que los árboles de decision son pequeños, es decir, 
+tienen pocos niveles y pocos nodos. Esto mejora lentamente el rendimiento de f(x). [2] Gareth James, Daniela Witten, 
+Trevor Hastie and Robert Tibshirani.An Introduction to Statistical Learning with Applications in R.
+
+El pseudocodigo del algoritmo es el siguiente:
 * ri es el residuo de la predicción en el ejemplo i.
 * lambda es un parámetro de contracción.
 * d es la cantidad de divisiones que se realizan en cada arbol
@@ -480,14 +484,14 @@ de más de 30 minutos son menos frecuentes y, por lo tanto, el modelo no está t
 
 **Histograma de duración predicha de partidas**
 
-![histograma.png](images%2Ftime_prediction_boosting%2Fhistograma.png)
+![histograma.png](images%2Ftime_prediction_boosting%2Fhistograma.png)  
 Figura[25]: Histograma de la duración de las partidas predichas por el modelo.
 
 
 **Curva de aprendizaje**
 
 ![img.png](images/time_prediction_boosting/curva_aprendizaje.png)  
-Figura[25]: Curva de aprendizaje del modelo.
+Figura[26]: Curva de aprendizaje del modelo.
 
 En la figura [26] se ve que cuando el conjunto de entrenamiento es de un tamaño mayor a 40000 muestras, el error cuadrático medio 
 tiende a mantenerse constante. Esto puede deberse a que el modelo ya está entrenado con una cantidad suficiente de datos y no 
