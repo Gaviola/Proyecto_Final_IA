@@ -124,8 +124,8 @@ utiliza `m = sqrt(p)` para la cantidad de variables seleccionadas.
 
 Boosting es un algoritmo de aprendizaje que, al igual que Random Forest, se basa en árboles de decision para realizar 
 regresiones o clasificaciones. En boosting no se involucran técnicas de boostraping, sino que se utilizan distintas
-versiones modificadas de los datos de entrenamiento. El algoritmo combina multiples árboles de decision, ˆf 1,..., ˆf B
-para crear un modelo de predicción f(x) = sum(b=1 to B) f_b(x). Es importante destacar que los árboles de decision son
+versiones modificadas de los datos de entrenamiento. El algoritmo combina multiples árboles de decision 
+para crear un modelo de predicción. Es importante destacar que los árboles de decision son
 pequeños, es decir, tienen pocos niveles y pocos nodos. Esto mejora lentamente el rendimiento de f(x). El pseudocodigo
 del algoritmo es el siguiente:
 * ri es el residuo de la predicción en el ejemplo i.
@@ -134,14 +134,7 @@ del algoritmo es el siguiente:
 * fb es el arbol de decision b
 * f es el modelo de predicción
 
-```
-1. Initialize f_0(x) = 0
-2. For b = 1 to B:
-    (a) Fit a tree ˆf b with d splits (d + 1 terminal nodes) to the training data (X, r).
-    (b) Update ˆf by adding in a shrunken version of the new tree: ˆf(x) ← ˆf(x) + λ ˆfb(x).
-    (c) Update the residuals,ri ← ri − λ ˆfb(xi).
-3. Output the boosted model, f(x) = sum(b=1 to B) λf_b(x).
-```
+![img.png](images/boosting-pseudocode.png)
 
 ---
 
