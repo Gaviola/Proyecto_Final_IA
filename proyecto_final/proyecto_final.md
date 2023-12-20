@@ -126,7 +126,7 @@ Robert Tibshirani.An Introduction to Statistical Learning with Applications in R
 
 Boosting es un algoritmo de aprendizaje que, al igual que Random Forest, se basa en árboles de decision para realizar 
 regresiones o clasificaciones. En boosting no se involucran técnicas de boostraping, sino que se utilizan distintas
-versiones modificadas de los datos de entrenamiento. El algoritmo combina multiples árboles de decision, ˆf 1,..., ˆf B
+versiones modificadas de los datos de entrenamiento. El algoritmo combina multiples árboles de decision, 
 para crear un modelo de predicción f(x). Es importante destacar que los árboles de decision son pequeños, es decir, 
 tienen pocos niveles y pocos nodos. Esto mejora lentamente el rendimiento de f(x). [2] Gareth James, Daniela Witten, 
 Trevor Hastie and Robert Tibshirani.An Introduction to Statistical Learning with Applications in R.
