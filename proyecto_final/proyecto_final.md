@@ -113,26 +113,26 @@ function decision-tree-learning(examples, attributes, parent_examples) returns a
 
 **Random Forest**
 
-Random Forest es un algoritmo de aprendizaje basado en arboles de decision. El algoritmo crea una serie de arboles de
+Random Forest es un algoritmo de aprendizaje basado en árboles de decision. El algoritmo crea una serie de árboles de
 decision, de la misma manera que lo hace un algoritmo de bagging, pero en este caso, en el momento de en que cada arbol
 del modelo va a crear nuevas ramas, se selecciona un subconjunto aleatorio de `m` variables predictoras del total de 
-variables predictoras `p`. En cada creacion de ramas se seleccionan `m` variables predictoras distintas. Esto se hace para
-evitar que los arboles esten altamente correlacionados entre si y asi tener un modelo mas confiable. Generalmente se
+variables predictoras `p`. En cada creación de ramas se seleccionan `m` variables predictoras distintas. Esto se hace para
+evitar que los árboles esten altamente correlacionados entre sí y asi tener un modelo más confiable. Generalmente, se
 utiliza `m = sqrt(p)` para la cantidad de variables seleccionadas.
 
 **Boosting**
 
-Boosting es un algoritmo de aprendizaje que, al igual que Random Forest, se basa en arboles de decision para realizar 
-regresiones o clasificaciones. En boosting no se involucran tecnicas de boostraping, sino que se utilizan distintas
-versiones modificadas de los datos de entrenamiento. El algoritmo combina multiples arboles de decision, ˆf 1,..., ˆf B
-para crear un modelo de prediccion f(x) = sum(b=1 to B) f_b(x). Es importante destacar que los arboles de decision son
+Boosting es un algoritmo de aprendizaje que, al igual que Random Forest, se basa en árboles de decision para realizar 
+regresiones o clasificaciones. En boosting no se involucran técnicas de boostraping, sino que se utilizan distintas
+versiones modificadas de los datos de entrenamiento. El algoritmo combina multiples árboles de decision, ˆf 1,..., ˆf B
+para crear un modelo de predicción f(x) = sum(b=1 to B) f_b(x). Es importante destacar que los árboles de decision son
 pequeños, es decir, tienen pocos niveles y pocos nodos. Esto mejora lentamente el rendimiento de f(x). El pseudocodigo
 del algoritmo es el siguiente:
-* ri es el residuo de la prediccion en el ejemplo i.
-* lambda es un parametro de contraccion.
+* ri es el residuo de la predicción en el ejemplo i.
+* lambda es un parámetro de contracción.
 * d es la cantidad de divisiones que se realizan en cada arbol
 * fb es el arbol de decision b
-* f es el modelo de prediccion
+* f es el modelo de predicción
 
 ```
 1. Initialize f_0(x) = 0
@@ -216,7 +216,7 @@ como listas o diccionarios, dificultando su uso. Para ello se crearon nuevas col
 los datos de dichas estructuras.
 
 Finalmente, se transformaron los datos categóricos en datos numéricos, como por ejemplo, transformar los valores True y 
-False en 1 y 0 respectivamente, o transformar los nombres de los campeones en numeros enteros. Esto se realizo con el 
+False en 1 y 0 respectivamente, o transformar los nombres de los campeones en números enteros. Esto se realizó con el 
 fin de que los algoritmos puedan trabajar de forma correcta con los datos.  
 
 En las figuras [3], [4], [5] y [6] se puede observar el dataset luego de la limpieza y transformación de datos.
@@ -248,13 +248,13 @@ sobre la cantidad total de partidas. Sobre esta metrica se calculará la precisi
 
 ### Random Forest para predicción de partidas
 
-Para la aplicación de este modelo se utilizó la libreria de `scikit-learn`. Tambien se hizo uso de las librerias `pandas`
-y `numpy` para la manipulacion de datos y `matplotlib` y `seaborn` para realizar ciertos graficos de los datos y 
+Para la aplicación de este modelo se utilizó la libreria de `scikit-learn`. También se hizo uso de las librerías `pandas`
+y `numpy` para la manipulación de datos y `matplotlib` y `seaborn` para realizar ciertos gráficos de los datos y 
 resultados.
 
-Antes de realizar el modelo de prediccion, se analizo el balanceo de clases del dataset. Se observó que dentro del mismo
-habia una cantidad similar de partidas ganadas como de partidas perdidadas, por lo que no fue necesario el uso de 
-tecnicas como oversampling, undersampling o SMOTE para balancear las clases. En la figura [7] se muestra como se distribuyen
+Antes de realizar el modelo de predicción, se analizó el balanceo de clases del dataset. Se observó que dentro del mismo
+había una cantidad similar de partidas ganadas como de partidas perdidadas, por lo que no fue necesario el uso de 
+técnicas como oversampling, undersampling o SMOTE para balancear las clases. En la figura [7] se muestra como se distribuyen
 las clases dentro del conjunto de entrenamiento y el conjunto de prueba.
 
 ![RF_balance_clases](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/10f5e3ff-a780-4ed0-aef8-3b7d332de9c3)  
@@ -264,11 +264,11 @@ Figura[7]: Balance de clases del dataset.
 
 Al utilizar el algoritmo Random Forest se notó que la precision del modelo se encontraba entre un 71% y 76%
 dependiendo del valor de 'Random_state' utilizado, tanto cuando se evaluaban utilizando el conjunto de prueba como el 
-conjunto de entrenamiento. Se vio que, en general, al modificar los parametros de random forest tales como la cantidad 
-de arboles, la cantidad de ejemplos minima para la creacion de una nueva rama, o los criterios de ramificacion, no se 
-obtienen mejoras significativas en las metricas del modelo. Dichos parametros fueron calibrados utilizando la libreria
+conjunto de entrenamiento. Se vio que, en general, al modificar los parámetros de random forest tales como la cantidad 
+de árboles, la cantidad de ejemplos minima para la creación de una nueva rama, o los criterios de ramificación, no se 
+obtienen mejoras significativas en las métricas del modelo. Dichos parámetros fueron calibrados utilizando la libreria
 `sklearn.model_selection.RandomizedSearchCV`, en donde se probaron 75 modelos (tanto en este modelo como en los 
-siguientes no se probaron mas debido al costo computacional). Los parametros utilizados son los siguientes:
+siguientes no se probaron más debido al costo computacional). Los parámetros utilizados son los siguientes:
 
 ```
 random_forest_model = RandomForestClassifier(
@@ -329,15 +329,16 @@ en cada iteración se intenta corregir los errores del modelo anterior. De esta 
 predicción más robusto y preciso. Para la creación del modelo se hizo uso de la libreria `xgboost`. Al igual que en el 
 caso de Random Forest, se utilizó la libreria `pandas` para la manipulación de datos. 
 
-A la hora de realizar el modelo predictivo de clasificacion, se encontro con que el la precision del mismo se encontraba
-entre alrededor del 75% cuando se evaluaba sobre el conjunto de prueba y un 85% cuando se evaluaba sobre el conjunto de
-entrenamiento. A diferencia de random forest, no se observa una variacion dependiendo del valor de random_state. sin 
-embargo, al igual que en random forest, a la hora de modificar los parametros del modelo, no se observan mejoras en el 
-conjunto de prueba, pero si en el conjunto de entrenamiento en donde se llego a un 88%, lo que indica que lo unico que
-logramos modificando dichos parametros es un sobreajuste del modelo. De manera similar a lo hecho en Random Forest, se
-utilizo la libreria `sklearn.model_selection.RandomizedSearchCV` para calibrar los parametros del modelo, en donde se 
-evaluaron 750 modelos aunque niguno obtuvo un mejor resultado que los valores por defecto . Los parametros utilizados 
-son los siguientes:
+Al desarrollar el modelo predictivo de clasificación, se observó que la precisión del mismo alcanzaba alrededor del 75% 
+al evaluarlo en el conjunto de prueba y un 85% en el conjunto de entrenamiento. A diferencia de Random Forest, no se 
+evidenció una variación significativa según el valor de `random_state`. Sin embargo, al modificar los parámetros del modelo, 
+al igual que en Random Forest, no se observaron mejoras en el conjunto de prueba, pero sí en el conjunto de entrenamiento, 
+alcanzando un 88%. Este resultado sugiere que la modificación de los parámetros conduce a un sobreajuste del modelo.
+
+En línea con la estrategia utilizada para Random Forest, se empleó la librería `sklearn.model_selection.RandomizedSearchCV` 
+para calibrar los parámetros del modelo. Se evaluaron 750 modelos, pero ninguno logró superar los resultados de los 
+valores por defecto. Los parámetros utilizados fueron los siguientes:
+
 
 ```
 model = xgb.XGBClassifier(objective="binary:logistic",
@@ -384,7 +385,7 @@ Figura[16]: Metricas del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
-Para la eleccion de los parametros del modelo se realizaron 75 modelos, dando como resultado los siguientes parametros:
+Para la eleccion de los parametros del modelo se realizaron 75 modelos, dando como resultado los siguientes parámetros:
 ```
 rf = RandomForestRegressor(n_estimators=439,
                             max_depth=18,
@@ -420,7 +421,7 @@ del modelo.
 **Diagrama de dispersión**
 
 ![img.png](images/time_prediction_RF/diagrama-dispersion.png)  
-Figura[19]: Diagrama de dispersión de los resultados obtenidos por el modelo.
+Figura[19]: Diagrama de dispersión de los resultados obtenidos por el modelo. La línea punteada representa los resultados ideales.
 
 **Histograma de duración predicha de partidas**
 
@@ -476,7 +477,7 @@ del modelo.
 **Diagrama de dispersión**
 
 ![img.png](images/time_prediction_boosting/disgrama_dispersion.png)  
-Figura[24]: Diagrama de dispersión de los resultados obtenidos por el modelo. La linea punteada representa los 
+Figura[24]: Diagrama de dispersión de los resultados obtenidos por el modelo. La línea punteada representa los 
 resultados ideales 
 
 
@@ -484,33 +485,38 @@ Se puede ver en la figura [24] que el modelo presenta un rango de error mayor en
 También se observa que el modelo tiene un techo alrededor de los 1800 segundos (30 minutos). Esto puede deberse a que partidas 
 de más de 30 minutos son menos frecuentes y, por lo tanto, el modelo no está tan entrenado para predecir estos casos.  
 
+**Histograma de duración predicha de partidas**
+
+![histograma.png](images%2Ftime_prediction_boosting%2Fhistograma.png)
+Figura[25]: Histograma de la duración de las partidas predichas por el modelo.
+
 
 **Curva de aprendizaje**
 
 ![img.png](images/time_prediction_boosting/curva_aprendizaje.png)  
 Figura[25]: Curva de aprendizaje del modelo.
 
-En la figura [25] se ve que cuando el conjunto de entrenamiento es de un tamaño mayor a 40000 muestras, el error cuadrático medio 
+En la figura [26] se ve que cuando el conjunto de entrenamiento es de un tamaño mayor a 40000 muestras, el error cuadrático medio 
 tiende a mantenerse constante. Esto puede deberse a que el modelo ya está entrenado con una cantidad suficiente de datos y no 
 necesita más para mejorar su precisión.
 
-Finalmente, en la figura [26] se visualiza la distribución de la duración real de las partidas en el dataset.
+Finalmente, en la figura [27] se visualiza la distribución de la duración real de las partidas en el dataset.
 
 ![img.png](images/time_prediction_boosting/distribucion_duracion.png)  
-Figura[26]: Distribución de la duración de las partidas con linea punteada indicando la duración media de las partidas.
+Figura[27]: Distribución de la duración de las partidas con linea punteada indicando la duración media de las partidas.
 La linea punteada representa la media de la duración de las partidas.
 
 ### Cross Validation
 
 Para la verificacion de los resultados previamente obtenidos, se realizo un cross validation utilizando la libreria 
 `sklearn` con los modelos de Random Forest y Boosting utilizando 5 folds. Los resultados obtenidos se muestran en las
-figuras [27] y [28].
+figuras [28] y [29].
 
 ![Cross_validation_partida.png](images%2Frandom_forest%2FCross_validation_partida.png)
-Figura[27]: Cross validation de los modelos de prediccion de los resultados de las partidas.
+Figura[28]: Cross validation de los modelos de prediccion de los resultados de las partidas.
 
 ![Cross_validation_duracion.png](images%2Ftime_prediction_RF%2FCross_validation_duracion.png)
-Figura[28]: Cross validation de los modelos de prediccion de la duracion de las partidas.
+Figura[29]: Cross validation de los modelos de prediccion de la duracion de las partidas.
 
 Por lo que se puede observar, los resultados obtenidos son similares a los previamente obtenidos, por lo que se puede
 concluir que los modelos son capaces de generalizar correctamente.
@@ -519,66 +525,69 @@ concluir que los modelos son capaces de generalizar correctamente.
 
 ## Análisis y discusión de resultados
 
-A la hora de predecir el resultado de las partidas se observa que los modelos de clasificacion utilizados obtienen resultados similares,
-tanto en las metricas como en las valoraciones de las variables predictoras. Algunas de las razones a las que se les 
-pueden atribuir estos resultados son las siguientes:
-* La variable 'firstTower' es la más influyente en la prediccion del resultado, esto puede deberse a que la destrucción de la primera
-torre no necesariamente se da en una etapa temprana de la partida en contraste con las otras variables analizadas por el modelo. Un caso similar 
-ocurre con la variable 'firstBlood'.
-* Las variables 'ban' y 'champ' muestran, de manera sorprendente, un aporte insignificante al modelo. 
-Diversas hipótesis podrían explicar este resultado. Por ejemplo, al evaluar datos de partidas competitivas en la región de Corea, 
+A la hora de predecir los resultados de las partidas, se observa que los modelos de clasificación utilizados muestran 
+resultados similares tanto en las métricas como en las valoraciones de las variables predictoras. Algunas razones que 
+podrían explicar estos resultados son las siguientes:  
+
+- La variable 'firstTower' resulta ser la más influyente en la predicción del resultado. Esto podría deberse a que la 
+destrucción de la primera torre no ocurre necesariamente en las primeras etapas de la partida, a diferencia de otras
+variables analizadas por el modelo. Una situación similar se presenta con la variable 'firstBlood'.
+
+- Sorprendentemente, las variables 'ban' y 'champ' muestran un aporte insignificante al modelo. Diversas hipótesis 
+podrían explicar este resultado. Por ejemplo, al evaluar datos de partidas competitivas en la región de Corea, 
 conocida por ser la más competitiva en el juego League of Legends, los jugadores tienden a seleccionar campeones 
-ya consolidados en la actualidad del juego. Además, es posible que los jugadores posean una gran habilidad 
-y conocimiento de los campeones, lo que resulta en un contrarresto efectivo durante la fase de selección y ban, llevando 
-a una influencia limitada en el resultado final del juego. Otra posible hipotesis de los resultados obtenidos en estas
-variables puede deberse a que, al ser uno de los juegos competitivos mas populares del mundo, el juego genuinamente
-se encuentra balanceado con respecto a las estadisticas y sinergias de los distintos campeones disponibles, por lo que 
-la eleccion de un campeon en particular no afecta significativamente el resultado de la partida.
-* La variable 'goldPerMin0-10' se ve que tanto en boosting como en random forest realiza un aporte mayor que por ejemplo
-'firstBlood' o 'firstDragon'. Esto nos indica que la cantidad de oro obtenida, puede ser un factor determinante a la 
-hora de definir una partida. Dicho resultado se ve potenciado debido a la habilidad de los jugadores de la redion de 
-corea en donde, al ser partidas tan reñidas, la resolucion de la misma puede darse en pequeños detalles como estos.
+ya consolidados en la actualidad del juego. Además, es posible que los jugadores posean una gran habilidad y 
+conocimiento de los campeones, lo que resulta en un contrarresto efectivo durante la fase de selección y ban, 
+llevando a una influencia limitada en el resultado final del juego. Otra posible hipótesis es que, al ser uno de 
+los juegos competitivos más populares del mundo, el juego está equilibrado en términos de estadísticas y sinergias 
+de los distintos campeones disponibles, por lo que la elección de un campeón en particular no afecta 
+significativamente el resultado de la partida.
 
-A la hora de predecir el tiempo de partida, se observa que la dstribucion de las partidas tiende a una distribucion
-normal, con una media de 1471 segundos (24,5 minutos) aunque existen ciertos casos donde no se acoplan a la distribucion
-normal. Estas partidas generalmente tienden a durar menos de 1000 segundos (16,6 minutos) o incluso menos de 500 
-segundos (8.3 minutos). Dichos casos atipicos puede deberse a un desbalance en la habilidad de los participantes, provocando la pronta
-finalizacion de la partida. Otra posible razon puede ser el abandono de alguno de los participantes, lo que explicaria 
-aquellas partidas que duran menos de 500 segundos.
+- La variable 'goldPerMin0-10' muestra un aporte mayor en boosting y random forest en comparación con variables como 
+'firstBlood' o 'firstDragon'. Esto sugiere que la cantidad de oro obtenida puede ser un factor determinante en la 
+definición de una partida. Este resultado se ve potenciado debido a la habilidad de los jugadores de la región de Corea, 
+donde las partidas son tan reñidas que la resolución puede depender de pequeños detalles como estos.
 
-En el caso del modelo de Random Forest para la prediccion de tiempo de partida, se observa una gran diferencia en las métricas 
-obtenidas para el conjunto de entrenamiento y el conjunto de prueba. Esto se debe a que el modelo se encuentra sobreajustado 
-a los datos de entrenamiento, por lo que no es capaz de generalizar correctamente.  
-Por el contrario, el modelo de Gradient Boosting para la prediccion de tiempo de partida, obtiene resultados similares en 
-ambos conjuntos de datos, lo que indica que el modelo es capaz de generalizar correctamente.
+Al predecir la duración de las partidas, se observa que la distribución tiende hacia una distribución normal, con una 
+media de 1471 segundos (24.5 minutos), aunque existen ciertos casos que no se ajustan a la distribución normal. 
+Estas partidas generalmente duran menos de 1000 segundos (16.6 minutos) o incluso menos de 500 segundos (8.3 minutos). 
+Estos casos atípicos pueden deberse a un desbalance en la habilidad de los participantes, lo que provoca la finalización 
+prematura de la partida. Otra posible razón podría ser el abandono de alguno de los participantes, lo que explicaría 
+aquellas partidas que duran menos de 500 segundos.  
 
-Al analizar las variables predictoras, se observa que las variables de gran importancia en los modelos de clasificacion
-realizan un aporte mucho menor en los modelos de regresion. Una posible respuesta a esto se debe a que dichas variables,
-como el caso de 'firstTower', 'firstBlood' o 'firstDragon', ocurren practicamente en cada partida y generalmente en los
-primeros minutos de la misma, provocando que no representen un gran factor a la hora de determinar la duracion de la 
-misma. Por el otro lado, las variables que que analizan la cantidad de oro, experiencia o daño en un determinado lapso
-de tiempo si ofrecen un aporte significativo ya que estos valores pueden denotar cuando una partida finzaliza 
-prematuramente.
+En el caso del modelo de Random Forest para la predicción del tiempo de partida, se observa una gran diferencia en las 
+métricas obtenidas entre el conjunto de entrenamiento y el conjunto de prueba. Esto se debe a que el modelo está 
+sobreajustado a los datos de entrenamiento y no puede generalizar correctamente. Por el contrario, el modelo de 
+Gradient Boosting para la predicción del tiempo de partida obtiene resultados similares en ambos conjuntos de datos, 
+lo que indica que el modelo puede generalizar correctamente. 
+
+Al analizar las variables predictoras, se observa que las variables de gran importancia en los modelos de clasificación 
+tienen un aporte mucho menor en los modelos de regresión. Una posible explicación para esto podría ser que variables 
+como 'firstTower', 'firstBlood' o 'firstDragon' ocurren prácticamente en cada partida y generalmente en los primeros 
+minutos, lo que hace que no representen un factor significativo para determinar la duración de la misma. Por otro lado, 
+las variables que analizan la cantidad de oro, experiencia o daño en un lapso de tiempo específico ofrecen un aporte 
+significativo, ya que estos valores pueden denotar el momento en que una partida finaliza prematuramente.  
 
 ---
 
 ## Conclusiones finales
 
-En base a los resultados obtenidos de los distintos modelos implementados y las distintas metricas utilizadas, se obtuvo
-unos buenos resultados a la hora de predecir el resultado de una partida de League of Legends. Sin embargo, dichos 
-resultados pueden estar sobreajustados al estilo de juego de la region de corea en las altas ligas, por lo que dichos 
-resultados pueden no ser extrapolables a otras regiones o ligas. Ademas, los datos utilizados en el proyecto se
-encuentras desactualizados, debido a la dificultad de obtener datos recientes, por lo que los resultados pueden no ser 
-los mismos en la actualidad. 
+Basándonos en los resultados obtenidos de los diversos modelos implementados y las distintas métricas utilizadas, 
+se lograron buenos resultados al predecir el resultado de una partida de League of Legends. Sin embargo, 
+es importante señalar que estos resultados podrían estar sobreajustados al estilo de juego de la región de Corea en 
+las ligas más altas, lo que podría limitar su aplicabilidad a otras regiones o ligas. Además, los datos utilizados en 
+el proyecto están desactualizados debido a la dificultad de obtener datos más recientes, lo que podría afectar la 
+vigencia de los resultados en la actualidad.
 
-Tambien es importante tener en cuenta que dentro de los datos, no se encuentran las estadisticas de los jugadores por lo
-que el modelo no es capaz de diferenciar entre un buen o mal jugador, afectando la prediccion del mismo. Ademas de que 
-los modelos son incapaces de tener en cuenta factores humanos como el estado de animo, la concentracion, las 
-distraccines o incluso los perifericos utlizados por los jugadores.
+Otro aspecto relevante es la ausencia de estadísticas específicas de los jugadores en los datos, lo que impide que el 
+modelo diferencie entre buenos y malos jugadores, afectando la precisión de las predicciones. Además, los modelos son 
+incapaces de considerar factores humanos como el estado de ánimo, la concentración, las distracciones o incluso los 
+periféricos utilizados por los jugadores.
 
-Una posible mejora a los modelos implementados seria la incorporación de datos específicos sobre diferentes jugadores 
-para poder diferenciar entre un buen o mal jugador o el desempeño de cada jugador con un campeón en particular. De esta 
-manera se podría obtener un modelo más preciso y robusto.
+Una posible mejora para los modelos implementados sería la incorporación de datos específicos sobre diferentes jugadores, 
+lo que permitiría distinguir entre buenos y malos jugadores, así como evaluar el rendimiento de cada jugador con un 
+campeón en particular. De esta manera, se podría lograr un modelo más preciso y robusto.
+
 
 ---
 
