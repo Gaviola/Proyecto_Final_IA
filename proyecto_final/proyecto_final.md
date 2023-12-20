@@ -44,8 +44,7 @@ mejoran el rendimiento de los campeones.
 mejorar las habilidades de los campeones.
 
 - **Dragones y Heraldo**: Los dragones y el Heraldo son criaturas poderosas que aparecen en la selva del mapa. Derrotar a alguno de estos
-otorga beneficios al equipo. Baron Nashor es una bestia aún más formidable que proporciona recompensas significativas y 
-puede cambiar el curso de la partida, pero no aparece hasta el minuto 20.  
+otorga beneficios al equipo. 
 
 - **Objetivos y Torres**: Además de eliminar al equipo contrario, los jugadores deben destruir torres enemigas y objetivos como inhibidores para 
 abrir el camino hacia el nexo enemigo. La destrucción de estos elementos proporciona ventajas estratégicas.  
@@ -236,7 +235,6 @@ Figura[6]: Columnas del dataset pre procesado.
  - **firstTower**: Indica si el equipo destruyó la primera torre de la partida.
  - **firstDragon**: Indica si el equipo obtuvo el primer dragón de la partida.
  - **firstRiftHerald**: Indica si el equipo obtuvo el primer Heraldo de la Grieta de la partida.
- - **firstBaron**: Indica si el equipo obtuvo el primer Barón de la partida.
  - **ban**: Campeones bloqueados por el equipo (5 por equipo).
  - **champ**: Campeones seleccionados por el equipo (5 por equipo).
  - **creepsPerMin0-10**: Cantidad de súbditos asesinados por minuto en los primeros 10 minutos de la partida.
@@ -264,30 +262,50 @@ Figura[7]: Balance de clases del dataset.
 
 
 
-Al utilizar el algoritmo Random Forest se notó que la precision del modelo se encontraba entre un 70% y 75%
+Al utilizar el algoritmo Random Forest se notó que la precision del modelo se encontraba entre un 71% y 76%
 dependiendo del valor de 'Random_state' utilizado, tanto cuando se evaluaban utilizando el conjunto de prueba como el 
 conjunto de entrenamiento. Se vio que, en general, al modificar los parametros de random forest tales como la cantidad 
 de arboles, la cantidad de ejemplos minima para la creacion de una nueva rama, o los criterios de ramificacion, no se 
-obtienen mejoras significativas en las metricas del modelo.
+obtienen mejoras significativas en las metricas del modelo. Dichos parametros fueron calibrados utilizando la libreria
+`sklearn.model_selection.RandomizedSearchCV`, en donde se probaron 75 modelos (tanto en este modelo como en los 
+siguientes no se probaron mas debido al costo computacional). Los parametros utilizados son los siguientes:
 
-Al igual que la metrica de precision, tanto la sensibilidad, exactitud y F-score se encontraban entre un 70% y 75%
+```
+random_forest_model = RandomForestClassifier(
+    n_estimators=171,
+    bootstrap=True,
+    max_depth=15,
+    max_features= 11,
+    min_samples_leaf= 8,
+    min_samples_split= 8,
+    random_state=42,
+    n_jobs=-1,
+    min_impurity_decrease=0.0001
+)
+```
+
+Al igual que la metrica de precision, tanto la sensibilidad, exactitud y F-score se encontraban entre un 71% y 76%
 
 Las figuras [8], [9], [10] y [11] muestran las matrices de confusion y métricas del modelo con un random_state = 42.
 
 **Conjunto de Prueba**
 
-![RF_matriz_confusion_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/e1b4882f-3ad4-40ad-9460-c49f49a6b1dd)  
+![RF_matriz_confusion_test.png](images%2Frandom_forest%2FRF_matriz_confusion_test.png)
+
 Figura[8]: Matriz de confusion del modelo con datos de prueba.
 
-![RF_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/832b1a53-784e-4077-ab37-a46d2b4a0273)
+![RF_metricas_test.png](images%2Frandom_forest%2FRF_metricas_test.png)
+
 Figura[9]: Metricas del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
-![RF_matriz_confusion_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/4b2c1869-e361-46d8-aca5-a3bc49e3130b)  
+![RF_matriz_confusion_train.png](images%2Frandom_forest%2FRF_matriz_confusion_train.png)
+
 Figura[10]: Matriz de confusion del modelo con datos de entrenamiento.
 
-![RF_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/a7c4fc00-ae7b-40ea-9179-e839b9345eaf)  
+![RF_metricas_train.png](images%2Frandom_forest%2FRF_metricas_train.png)  
+
 Figura[11]: Metricas del modelo con datos de entrenamiento.
 
 
@@ -312,11 +330,21 @@ predicción más robusto y preciso. Para la creación del modelo se hizo uso de 
 caso de Random Forest, se utilizó la libreria `pandas` para la manipulación de datos. 
 
 A la hora de realizar el modelo predictivo de clasificacion, se encontro con que el la precision del mismo se encontraba
-entre alrededor del 73% cuando se evaluaba sobre el conjunto de prueba y un 83% cuando se evaluaba sobre el conjunto de
+entre alrededor del 75% cuando se evaluaba sobre el conjunto de prueba y un 85% cuando se evaluaba sobre el conjunto de
 entrenamiento. A diferencia de random forest, no se observa una variacion dependiendo del valor de random_state. sin 
 embargo, al igual que en random forest, a la hora de modificar los parametros del modelo, no se observan mejoras en el 
 conjunto de prueba, pero si en el conjunto de entrenamiento en donde se llego a un 88%, lo que indica que lo unico que
-logramos modificando dichos parametros es un sobreajuste del modelo.
+logramos modificando dichos parametros es un sobreajuste del modelo. De manera similar a lo hecho en Random Forest, se
+utilizo la libreria `sklearn.model_selection.RandomizedSearchCV` para calibrar los parametros del modelo, en donde se 
+evaluaron 750 modelos aunque niguno obtuvo un mejor resultado que los valores por defecto . Los parametros utilizados 
+son los siguientes:
+
+```
+model = xgb.XGBClassifier(objective="binary:logistic",
+                          random_state=25,
+                          enable_categorical=True,
+                          eval_metric='logloss')
+```
 
 Las metricas de sensibilidad, exactitud y F-score se encontraban entre un 75% en el conjunto de prueba y un 85% en el
 conjunto de entrenamiento.
@@ -325,12 +353,13 @@ Las figuras [13] y [14] muestran las matrices de confusion y métricas del model
 
 **Conjunto de Prueba**
 
-![B_matriz_y_metricas_test](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/f10adf6a-5732-4590-a44f-bf28afa655a5)  
+![B_matriz_y_metricas_test.png](images%2Fboosting%2FB_matriz_y_metricas_test.png)
+
 Figura[13]: Matriz de confusion del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
-![B_matriz_y_metricas_train](https://github.com/Gaviola/Proyecto_Final_IA/assets/69123521/2677ab3f-7d1a-484a-89b1-737533483b46)  
+![B_matriz_y_metricas_train.png](images%2Fboosting%2FB_matriz_y_metricas_train.png)
 Figura[14]: Matriz de confusion del modelo con datos de entrenamiento.
 
 Al analizar las variables mas importantes con el modelo de boosting nos encontramos con un escenario similar al modelo
@@ -354,6 +383,19 @@ error absoluto y el coeficiente de determinación. Dando como resultado los valo
 Figura[16]: Metricas del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
+
+Para la eleccion de los parametros del modelo se realizaron 75 modelos, dando como resultado los siguientes parametros:
+```
+rf = RandomForestRegressor(n_estimators=439,
+                            max_depth=18,
+                            min_samples_split=3,
+                            min_samples_leaf=4,
+                            max_features=8,
+                            bootstrap=False,
+                            random_state=42,
+                            n_jobs=-1
+                            )
+```
 
 ![prediccion_tiempo_metricas_train_RF.png](images%2Ftime_prediction_RF%2Fprediccion_tiempo_metricas_train_RF.png)  
 Figura[17]: Métricas del modelo con datos de entrenamiento.
@@ -408,12 +450,25 @@ Las figuras [22] y [23] muestran las métricas obtenidas para el modelo de boost
 **Conjunto de Prueba**
 
 ![img.png](images/time_prediction_boosting/metricas_test.png)
+
 Figura[22]: Métricas del modelo con datos de prueba.
 
 **Conjunto de Entrenamiento**
 
-![img.png](images/time_prediction_boosting/metricas_train.png)  
+![img.png](images/time_prediction_boosting/metricas_train.png)
+
 Figura[23]: Métricas del modelo con datos de entrenamiento.
+
+Para la elección de los parámetros del modelo se realizaron 2500 modelos, dando como resultado los siguientes parámetros:
+```
+model = HistGradientBoostingRegressor(max_iter=16,
+                                        learning_rate=0.5,
+                                        max_depth=10,
+                                        min_samples_leaf=15,
+                                        l2_regularization=0.5,
+                                        max_leaf_nodes=16,
+                                        random_state=42)
+```
 
 A continuación se observan distintos gráficos que dan una visión más clara de los resultados obtenidos y del funcionamiento 
 del modelo.
@@ -421,7 +476,8 @@ del modelo.
 **Diagrama de dispersión**
 
 ![img.png](images/time_prediction_boosting/disgrama_dispersion.png)  
-Figura[24]: Diagrama de dispersión de los resultados obtenidos por el modelo.
+Figura[24]: Diagrama de dispersión de los resultados obtenidos por el modelo. La linea punteada representa los 
+resultados ideales 
 
 
 Se puede ver en la figura [24] que el modelo presenta un rango de error mayor en las partidas que duran al rededor de 1000 segundos. 
@@ -434,14 +490,30 @@ de más de 30 minutos son menos frecuentes y, por lo tanto, el modelo no está t
 ![img.png](images/time_prediction_boosting/curva_aprendizaje.png)  
 Figura[25]: Curva de aprendizaje del modelo.
 
-En la figura [25] se ve que cuando el conjunto de entrenamiento es de un tamaño mayor a 20000 muestras, el error cuadrático medio 
-se mantiene constante. Esto puede deberse a que el modelo ya está entrenado con una cantidad suficiente de datos y no 
+En la figura [25] se ve que cuando el conjunto de entrenamiento es de un tamaño mayor a 40000 muestras, el error cuadrático medio 
+tiende a mantenerse constante. Esto puede deberse a que el modelo ya está entrenado con una cantidad suficiente de datos y no 
 necesita más para mejorar su precisión.
 
 Finalmente, en la figura [26] se visualiza la distribución de la duración real de las partidas en el dataset.
 
 ![img.png](images/time_prediction_boosting/distribucion_duracion.png)  
 Figura[26]: Distribución de la duración de las partidas con linea punteada indicando la duración media de las partidas.
+La linea punteada representa la media de la duración de las partidas.
+
+### Cross Validation
+
+Para la verificacion de los resultados previamente obtenidos, se realizo un cross validation utilizando la libreria 
+`sklearn` con los modelos de Random Forest y Boosting utilizando 5 folds. Los resultados obtenidos se muestran en las
+figuras [27] y [28].
+
+![Cross_validation_partida.png](images%2Frandom_forest%2FCross_validation_partida.png)
+Figura[27]: Cross validation de los modelos de prediccion de los resultados de las partidas.
+
+![Cross_validation_duracion.png](images%2Ftime_prediction_RF%2FCross_validation_duracion.png)
+Figura[28]: Cross validation de los modelos de prediccion de la duracion de las partidas.
+
+Por lo que se puede observar, los resultados obtenidos son similares a los previamente obtenidos, por lo que se puede
+concluir que los modelos son capaces de generalizar correctamente.
 
 ---
 
@@ -458,7 +530,10 @@ Diversas hipótesis podrían explicar este resultado. Por ejemplo, al evaluar da
 conocida por ser la más competitiva en el juego League of Legends, los jugadores tienden a seleccionar campeones 
 ya consolidados en la actualidad del juego. Además, es posible que los jugadores posean una gran habilidad 
 y conocimiento de los campeones, lo que resulta en un contrarresto efectivo durante la fase de selección y ban, llevando 
-a una influencia limitada en el resultado final del juego.
+a una influencia limitada en el resultado final del juego. Otra posible hipotesis de los resultados obtenidos en estas
+variables puede deberse a que, al ser uno de los juegos competitivos mas populares del mundo, el juego genuinamente
+se encuentra balanceado con respecto a las estadisticas y sinergias de los distintos campeones disponibles, por lo que 
+la eleccion de un campeon en particular no afecta significativamente el resultado de la partida.
 * La variable 'goldPerMin0-10' se ve que tanto en boosting como en random forest realiza un aporte mayor que por ejemplo
 'firstBlood' o 'firstDragon'. Esto nos indica que la cantidad de oro obtenida, puede ser un factor determinante a la 
 hora de definir una partida. Dicho resultado se ve potenciado debido a la habilidad de los jugadores de la redion de 
